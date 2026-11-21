@@ -1,68 +1,104 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { CardGrid } from "@/components/CardGrid";
 import { ColorPips } from "@/components/ColorPips";
 import { ValidationReport } from "@/components/ValidationReport";
 import { prisma } from "@/lib/db";
+import { deckTotal, formatPrice, mergeLines, type Currency } from "@/lib/deck/groups";
 import { loadDeck } from "@/lib/deck/load";
+import { toViewCard, toViewGroups, type ViewGroup } from "@/lib/deck/view";
 
 export const dynamic = "force-dynamic";
 
-export default async function DeckPage({ params }: { params: Promise<{ id: string }> }) {
+const dateFmt = new Intl.DateTimeFormat("pt-PT", { dateStyle: "short", timeStyle: "short", timeZone: "Europe/Lisbon" });
+
+export default async function DeckPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ moeda?: string }>;
+}) {
   const { id } = await params;
+  const currency: Currency = (await searchParams).moeda === "usd" ? "usd" : "eur";
   const deck = await prisma.deck.findUnique({ where: { id } });
   if (!deck) notFound();
 
-  const loaded = await loadDeck(prisma, deck.text);
-  const commander = loaded.commander[0]?.card;
-  const rows = [...loaded.commander, ...loaded.main];
+  const [loaded, lastImport] = await Promise.all([
+    loadDeck(prisma, deck.text),
+    prisma.importRun.findFirst({ where: { status: "ok" }, orderBy: { finishedAt: "desc" } }),
+  ]);
+
+  const commanderLines = mergeLines(loaded.commander.map((r) => ({ card: r.card, quantity: r.entry.quantity })));
+  const mainLines = loaded.main.map((r) => ({ card: r.card, quantity: r.entry.quantity }));
+  const allLines = [...commanderLines, ...mainLines];
+  const total = deckTotal(allLines, currency);
+  const commander = commanderLines[0]?.card;
+
+  const groups: ViewGroup[] = [
+    ...(commanderLines.length
+      ? [
+          {
+            key: "commander",
+            label: commanderLines.length > 1 ? "Comandantes" : "Comandante",
+            count: commanderLines.reduce((s, l) => s + l.quantity, 0),
+            totalCents: 0,
+            cards: commanderLines.map((l) => toViewCard(l.card, l.quantity, currency)),
+          },
+        ]
+      : []),
+    ...toViewGroups(mainLines, currency),
+  ];
 
   return (
     <div className="space-y-8">
-      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-b border-rule pb-4">
+      <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-4 border-b border-rule pb-4">
         <div>
           <p className="text-xs uppercase tracking-wider text-ink-2">Comandante</p>
           <h1 className="text-2xl">
             {commander ? commander.name : "—"}{" "}
             {commander && <ColorPips identity={commander.colorIdentity} size={18} />}
           </h1>
+          <Link href={`/?from=${id}`} className="text-sm">
+            Editar lista
+          </Link>
         </div>
-        <Link href={`/?from=${id}`} className="text-sm">
-          Editar lista
-        </Link>
+
+        <div className="text-right">
+          <p className="text-xs uppercase tracking-wider text-ink-2">Preço total</p>
+          <p className="num text-2xl">{formatPrice(total.totalCents, currency)}</p>
+          <nav aria-label="Moeda" className="num text-sm space-x-2">
+            {(["eur", "usd"] as const).map((c) =>
+              c === currency ? (
+                <span key={c} aria-current="true" className="underline decoration-accent underline-offset-4">
+                  {c.toUpperCase()}
+                </span>
+              ) : (
+                <Link key={c} href={c === "eur" ? `/deck/${id}` : `/deck/${id}?moeda=usd`} className="text-ink-2 no-underline hover:text-ink">
+                  {c.toUpperCase()}
+                </Link>
+              ),
+            )}
+          </nav>
+        </div>
       </div>
 
       <ValidationReport result={loaded.validation} />
 
-      <section>
-        <h2 className="text-lg mb-3">
-          Cartas <span className="num text-sm text-ink-2">({loaded.validation.totalCards})</span>
-        </h2>
-        <table className="w-full text-sm border-collapse">
-          <thead>
-            <tr className="text-left text-xs text-ink-2 border-b border-rule">
-              <th className="py-1 pr-3 font-normal w-10">Qt.</th>
-              <th className="py-1 pr-3 font-normal">Nome</th>
-              <th className="py-1 pr-3 font-normal hidden sm:table-cell">Tipo</th>
-              <th className="py-1 font-normal w-20">Cor</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map(({ entry, card }) => (
-              <tr key={entry.line} className="border-b border-rule/60">
-                <td className="py-1 pr-3 num">{entry.quantity}</td>
-                <td className="py-1 pr-3">
-                  {card.name}
-                  {entry.section === "commander" && <span className="ml-2 text-xs text-accent">comandante</span>}
-                </td>
-                <td className="py-1 pr-3 text-ink-2 hidden sm:table-cell">{card.typeLine}</td>
-                <td className="py-1">
-                  <ColorPips identity={card.colorIdentity} size={14} />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </section>
+      <p className="text-xs text-ink-2 max-w-prose">
+        Preços de referência do Scryfall ({currency === "eur" ? "Cardmarket" : "TCGplayer"}; edição escolhida pelo
+        Scryfall ou, se essa não tiver preço, a impressão mais barata)
+        {lastImport?.finishedAt && <>, atualizados a {dateFmt.format(lastImport.finishedAt)}</>}. Podem ter até 24 h.
+        {total.missing > 0 && (
+          <>
+            {" "}
+            {total.missing === 1 ? "1 carta não tem" : `${total.missing} cartas não têm`} preço em{" "}
+            {currency.toUpperCase()} e não {total.missing === 1 ? "conta" : "contam"} para o total.
+          </>
+        )}
+      </p>
+
+      <CardGrid groups={groups} currency={currency} />
     </div>
   );
 }

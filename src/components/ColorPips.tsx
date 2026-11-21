@@ -1,14 +1,14 @@
 import { COLOR_NAMES_PT, type Color } from "@/lib/cards/normalize";
+import { ManaSymbol } from "./Mana";
 
-/** Símbolos de mana oficiais (SVG servido pelo Scryfall). */
+/** Identidade de cor com os símbolos oficiais (SVG do Scryfall). */
 export function ColorPips({ identity, size = 16 }: { identity: string; size?: number }) {
   const symbols = identity ? [...identity] : ["C"];
   const label = identity ? [...identity].map((c) => COLOR_NAMES_PT[c as Color]).join(", ") : "incolor";
   return (
-    <span className="inline-flex gap-0.5 align-[-2px]" title={label} aria-label={label}>
+    <span className="inline-flex gap-0.5 align-[-2px]" title={label} aria-label={label} role="img">
       {symbols.map((s) => (
-        // eslint-disable-next-line @next/next/no-img-element -- imagem externa do Scryfall, sem otimização
-        <img key={s} src={`https://svgs.scryfall.io/card-symbols/${s}.svg`} alt="" width={size} height={size} />
+        <ManaSymbol key={s} symbol={s} size={size} />
       ))}
     </span>
   );
