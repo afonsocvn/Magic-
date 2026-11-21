@@ -1,0 +1,80 @@
+// SQLite por agora. Para migrar para Postgres: mudar o provider, apagar
+// prisma/migrations e correr `prisma migrate dev` de novo. O esquema evita
+// funcionalidades exclusivas de SQLite (sem listas escalares).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+/// Uma carta por oracle_id (bulk "oracle_cards" do Scryfall).
+model Card {
+  /// oracle_id do Scryfall
+  id                String   @id
+  /// id da impressão escolhida pelo Scryfall (para imagens/preço)
+  scryfallId        String
+  name              String
+  layout            String
+  manaCost          String?
+  cmc               Float
+  typeLine          String
+  oracleText        String?
+  /// Cores como letras em ordem WUBRG, ex.: "WU". "" = incolor.
+  colors            String
+  colorIdentity     String
+  /// Mana que a carta produz, ex.: "GC" (útil para contar fontes)
+  producedMana      String
+  /// Objeto de legalidades do Scryfall: { commander: "legal", ... }
+  legalities        Json
+  /// Cópia de legalities.commander para consultas rápidas
+  commanderLegality String
+  gameChanger       Boolean  @default(false)
+  /// Preços em cêntimos
+  priceEurCents     Int?
+  priceUsdCents     Int?
+  /// { small, normal, large } — só links para *.scryfall.io
+  imageUris         Json?
+  /// Faces de cartas com várias faces: [{ name, manaCost, typeLine, oracleText, colors, imageUris }]
+  faces             Json?
+  /// "bulk" ou "collection" (carta que faltava no bulk)
+  source            String   @default("bulk")
+  updatedAt         DateTime @updatedAt
+
+  names CardName[]
+
+  @@index([name])
+}
+
+/// Nomes normalizados pelos quais uma carta pode ser encontrada
+/// (nome completo e o nome de cada face).
+model CardName {
+  name   String
+  cardId String
+  card   Card   @relation(fields: [cardId], references: [id], onDelete: Cascade)
+
+  @@id([name, cardId])
+  @@index([name])
+}
+
+/// Registo de cada importação do bulk.
+model ImportRun {
+  id            Int       @id @default(autoincrement())
+  startedAt     DateTime  @default(now())
+  finishedAt    DateTime?
+  /// updated_at do bulk no Scryfall
+  bulkUpdatedAt DateTime?
+  cardCount     Int       @default(0)
+  status        String    @default("running") // running | ok | skipped | failed
+  message       String?
+}
+
+/// Decklist colada, identificada pelo hash do texto normalizado.
+model Deck {
+  id        String   @id
+  text      String
+  createdAt DateTime @default(now())
+}

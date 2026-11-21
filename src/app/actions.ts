@@ -1,0 +1,19 @@
+"use server";
+
+import { redirect } from "next/navigation";
+import { prisma } from "@/lib/db";
+import { deckId } from "@/lib/deck/load";
+
+export type SubmitState = { error?: string };
+
+const MAX_LENGTH = 20_000;
+
+export async function submitDeck(_prev: SubmitState, form: FormData): Promise<SubmitState> {
+  const text = String(form.get("decklist") ?? "").trim();
+  if (!text) return { error: "Cola a decklist primeiro." };
+  if (text.length > MAX_LENGTH) return { error: "O texto é demasiado longo para uma decklist de Commander." };
+
+  const id = deckId(text);
+  await prisma.deck.upsert({ where: { id }, create: { id, text }, update: {} });
+  redirect(`/deck/${id}`);
+}

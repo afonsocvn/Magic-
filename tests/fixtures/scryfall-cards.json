@@ -1,0 +1,566 @@
+[
+ {
+  "object": "card",
+  "id": "625a41c8-0b5a-4738-afa6-db847d043c88",
+  "oracle_id": "0019beff-1528-4131-ae21-9e7a3cf7fbfb",
+  "name": "Brightglass Gearhulk // Brightglass Gearhulk",
+  "layout": "art_series",
+  "cmc": 0.0,
+  "type_line": "Card // Card",
+  "color_identity": [],
+  "legalities": {
+   "commander": "not_legal",
+   "vintage": "not_legal"
+  },
+  "game_changer": false,
+  "prices": {
+   "usd": null,
+   "usd_foil": null,
+   "usd_etched": null,
+   "eur": null,
+   "eur_foil": null,
+   "tix": null
+  },
+  "card_faces": [
+   {
+    "name": "Brightglass Gearhulk",
+    "mana_cost": "",
+    "type_line": "Card",
+    "oracle_text": "",
+    "colors": [],
+    "image_uris": {
+     "small": "https://cards.scryfall.io/small/front/6/2/625a41c8-0b5a-4738-afa6-db847d043c88.jpg?1783907552",
+     "normal": "https://cards.scryfall.io/normal/front/6/2/625a41c8-0b5a-4738-afa6-db847d043c88.jpg?1783907552",
+     "large": "https://cards.scryfall.io/large/front/6/2/625a41c8-0b5a-4738-afa6-db847d043c88.jpg?1783907552",
+     "png": "https://cards.scryfall.io/png/front/6/2/625a41c8-0b5a-4738-afa6-db847d043c88.png?1783907552",
+     "art_crop": "https://cards.scryfall.io/art_crop/front/6/2/625a41c8-0b5a-4738-afa6-db847d043c88.jpg?1783907552",
+     "border_crop": "https://cards.scryfall.io/border_crop/front/6/2/625a41c8-0b5a-4738-afa6-db847d043c88.jpg?1783907552",
+     "thumb": "https://cards.scryfall.io/thumb/front/6/2/625a41c8-0b5a-4738-afa6-db847d043c88.webp?1783907552",
+     "grid": "https://cards.scryfall.io/grid/front/6/2/625a41c8-0b5a-4738-afa6-db847d043c88.webp?1783907552",
+     "display": "https://cards.scryfall.io/display/front/6/2/625a41c8-0b5a-4738-afa6-db847d043c88.webp?1783907552",
+     "art": "https://cards.scryfall.io/art/front/6/2/625a41c8-0b5a-4738-afa6-db847d043c88.webp?1783907552",
+     "crop": "https://cards.scryfall.io/crop/front/6/2/625a41c8-0b5a-4738-afa6-db847d043c88.webp?1783907552",
+     "jpeg": "https://cards.scryfall.io/normal/front/6/2/625a41c8-0b5a-4738-afa6-db847d043c88.jpg?1783907552"
+    }
+   },
+   {
+    "name": "Brightglass Gearhulk",
+    "mana_cost": "",
+    "type_line": "Card",
+    "oracle_text": "",
+    "colors": [],
+    "image_uris": {
+     "small": "https://cards.scryfall.io/small/back/6/2/625a41c8-0b5a-4738-afa6-db847d043c88.jpg?1783907552",
+     "normal": "https://cards.scryfall.io/normal/back/6/2/625a41c8-0b5a-4738-afa6-db847d043c88.jpg?1783907552",
+     "large": "https://cards.scryfall.io/large/back/6/2/625a41c8-0b5a-4738-afa6-db847d043c88.jpg?1783907552",
+     "png": "https://cards.scryfall.io/png/back/6/2/625a41c8-0b5a-4738-afa6-db847d043c88.png?1783907552",
+     "art_crop": "https://cards.scryfall.io/art_crop/back/6/2/625a41c8-0b5a-4738-afa6-db847d043c88.jpg?1783907552",
+     "border_crop": "https://cards.scryfall.io/border_crop/back/6/2/625a41c8-0b5a-4738-afa6-db847d043c88.jpg?1783907552",
+     "thumb": "https://cards.scryfall.io/thumb/back/6/2/625a41c8-0b5a-4738-afa6-db847d043c88.webp?1783907552",
+     "grid": "https://cards.scryfall.io/grid/back/6/2/625a41c8-0b5a-4738-afa6-db847d043c88.webp?1783907552",
+     "display": "https://cards.scryfall.io/display/back/6/2/625a41c8-0b5a-4738-afa6-db847d043c88.webp?1783907552",
+     "art": "https://cards.scryfall.io/art/back/6/2/625a41c8-0b5a-4738-afa6-db847d043c88.webp?1783907552",
+     "crop": "https://cards.scryfall.io/crop/back/6/2/625a41c8-0b5a-4738-afa6-db847d043c88.webp?1783907552",
+     "jpeg": "https://cards.scryfall.io/normal/back/6/2/625a41c8-0b5a-4738-afa6-db847d043c88.jpg?1783907552"
+    }
+   }
+  ],
+  "set": "adft",
+  "collector_number": "53"
+ },
+ {
+  "object": "card",
+  "id": "21afb029-9aef-4e6e-a646-3343605b4bb7",
+  "oracle_id": "0042a526-8828-40eb-bd32-4f57b230625a",
+  "name": "Tyranid",
+  "layout": "token",
+  "mana_cost": "",
+  "cmc": 0.0,
+  "type_line": "Token Creature — Tyranid",
+  "oracle_text": "",
+  "colors": [
+   "G"
+  ],
+  "color_identity": [
+   "G"
+  ],
+  "legalities": {
+   "commander": "not_legal",
+   "vintage": "not_legal"
+  },
+  "game_changer": false,
+  "prices": {
+   "usd": null,
+   "usd_foil": null,
+   "usd_etched": null,
+   "eur": null,
+   "eur_foil": null,
+   "tix": null
+  },
+  "image_uris": {
+   "small": "https://cards.scryfall.io/small/front/2/1/21afb029-9aef-4e6e-a646-3343605b4bb7.jpg?1783920658",
+   "normal": "https://cards.scryfall.io/normal/front/2/1/21afb029-9aef-4e6e-a646-3343605b4bb7.jpg?1783920658",
+   "large": "https://cards.scryfall.io/large/front/2/1/21afb029-9aef-4e6e-a646-3343605b4bb7.jpg?1783920658",
+   "png": "https://cards.scryfall.io/png/front/2/1/21afb029-9aef-4e6e-a646-3343605b4bb7.png?1783920658",
+   "art_crop": "https://cards.scryfall.io/art_crop/front/2/1/21afb029-9aef-4e6e-a646-3343605b4bb7.jpg?1783920658",
+   "border_crop": "https://cards.scryfall.io/border_crop/front/2/1/21afb029-9aef-4e6e-a646-3343605b4bb7.jpg?1783920658",
+   "thumb": "https://cards.scryfall.io/thumb/front/2/1/21afb029-9aef-4e6e-a646-3343605b4bb7.webp?1783920658",
+   "grid": "https://cards.scryfall.io/grid/front/2/1/21afb029-9aef-4e6e-a646-3343605b4bb7.webp?1783920658",
+   "display": "https://cards.scryfall.io/display/front/2/1/21afb029-9aef-4e6e-a646-3343605b4bb7.webp?1783920658",
+   "art": "https://cards.scryfall.io/art/front/2/1/21afb029-9aef-4e6e-a646-3343605b4bb7.webp?1783920658",
+   "crop": "https://cards.scryfall.io/crop/front/2/1/21afb029-9aef-4e6e-a646-3343605b4bb7.webp?1783920658",
+   "jpeg": "https://cards.scryfall.io/normal/front/2/1/21afb029-9aef-4e6e-a646-3343605b4bb7.jpg?1783920658"
+  },
+  "set": "t40k",
+  "collector_number": "18"
+ },
+ {
+  "object": "card",
+  "id": "75f47b6e-9557-4853-b8d6-7602a91c59a7",
+  "oracle_id": "104ea189-14cd-420f-afdc-57b0f827ab8e",
+  "name": "Relentless Rats",
+  "layout": "normal",
+  "mana_cost": "{1}{B}{B}",
+  "cmc": 3.0,
+  "type_line": "Creature — Rat",
+  "oracle_text": "This creature gets +1/+1 for each other creature on the battlefield named Relentless Rats.\nA deck can have any number of cards named Relentless Rats.",
+  "colors": [
+   "B"
+  ],
+  "color_identity": [
+   "B"
+  ],
+  "legalities": {
+   "commander": "legal",
+   "vintage": "legal"
+  },
+  "game_changer": false,
+  "prices": {
+   "usd": "3.91",
+   "usd_foil": "6.49",
+   "usd_etched": null,
+   "eur": "1.39",
+   "eur_foil": "1.98",
+   "tix": "0.07"
+  },
+  "image_uris": {
+   "small": "https://cards.scryfall.io/small/front/7/5/75f47b6e-9557-4853-b8d6-7602a91c59a7.jpg?1783935158",
+   "normal": "https://cards.scryfall.io/normal/front/7/5/75f47b6e-9557-4853-b8d6-7602a91c59a7.jpg?1783935158",
+   "large": "https://cards.scryfall.io/large/front/7/5/75f47b6e-9557-4853-b8d6-7602a91c59a7.jpg?1783935158",
+   "png": "https://cards.scryfall.io/png/front/7/5/75f47b6e-9557-4853-b8d6-7602a91c59a7.png?1783935158",
+   "art_crop": "https://cards.scryfall.io/art_crop/front/7/5/75f47b6e-9557-4853-b8d6-7602a91c59a7.jpg?1783935158",
+   "border_crop": "https://cards.scryfall.io/border_crop/front/7/5/75f47b6e-9557-4853-b8d6-7602a91c59a7.jpg?1783935158",
+   "thumb": "https://cards.scryfall.io/thumb/front/7/5/75f47b6e-9557-4853-b8d6-7602a91c59a7.webp?1783935158",
+   "grid": "https://cards.scryfall.io/grid/front/7/5/75f47b6e-9557-4853-b8d6-7602a91c59a7.webp?1783935158",
+   "display": "https://cards.scryfall.io/display/front/7/5/75f47b6e-9557-4853-b8d6-7602a91c59a7.webp?1783935158",
+   "art": "https://cards.scryfall.io/art/front/7/5/75f47b6e-9557-4853-b8d6-7602a91c59a7.webp?1783935158",
+   "crop": "https://cards.scryfall.io/crop/front/7/5/75f47b6e-9557-4853-b8d6-7602a91c59a7.webp?1783935158",
+   "jpeg": "https://cards.scryfall.io/normal/front/7/5/75f47b6e-9557-4853-b8d6-7602a91c59a7.jpg?1783935158"
+  },
+  "set": "a25",
+  "collector_number": "105"
+ },
+ {
+  "object": "card",
+  "id": "cec89c38-0b72-44b0-ac6c-7eb9503e1256",
+  "oracle_id": "3f8e7a45-4c6e-4ee6-93d0-b7de9715ec97",
+  "name": "Lim-Dûl's Vault",
+  "layout": "normal",
+  "mana_cost": "{U}{B}",
+  "cmc": 2.0,
+  "type_line": "Instant",
+  "oracle_text": "Look at the top five cards of your library. As many times as you choose, you may pay 1 life, put those cards on the bottom of your library in any order, then look at the top five cards of your library. Then shuffle and put the last cards you looked at this way on top in any order.",
+  "colors": [
+   "B",
+   "U"
+  ],
+  "color_identity": [
+   "B",
+   "U"
+  ],
+  "legalities": {
+   "commander": "legal",
+   "vintage": "legal"
+  },
+  "game_changer": false,
+  "prices": {
+   "usd": "4.95",
+   "usd_foil": null,
+   "usd_etched": null,
+   "eur": "4.68",
+   "eur_foil": null,
+   "tix": "0.16"
+  },
+  "image_uris": {
+   "small": "https://cards.scryfall.io/small/front/c/e/cec89c38-0b72-44b0-ac6c-7eb9503e1256.jpg?1783939648",
+   "normal": "https://cards.scryfall.io/normal/front/c/e/cec89c38-0b72-44b0-ac6c-7eb9503e1256.jpg?1783939648",
+   "large": "https://cards.scryfall.io/large/front/c/e/cec89c38-0b72-44b0-ac6c-7eb9503e1256.jpg?1783939648",
+   "png": "https://cards.scryfall.io/png/front/c/e/cec89c38-0b72-44b0-ac6c-7eb9503e1256.png?1783939648",
+   "art_crop": "https://cards.scryfall.io/art_crop/front/c/e/cec89c38-0b72-44b0-ac6c-7eb9503e1256.jpg?1783939648",
+   "border_crop": "https://cards.scryfall.io/border_crop/front/c/e/cec89c38-0b72-44b0-ac6c-7eb9503e1256.jpg?1783939648",
+   "thumb": "https://cards.scryfall.io/thumb/front/c/e/cec89c38-0b72-44b0-ac6c-7eb9503e1256.webp?1783939648",
+   "grid": "https://cards.scryfall.io/grid/front/c/e/cec89c38-0b72-44b0-ac6c-7eb9503e1256.webp?1783939648",
+   "display": "https://cards.scryfall.io/display/front/c/e/cec89c38-0b72-44b0-ac6c-7eb9503e1256.webp?1783939648",
+   "art": "https://cards.scryfall.io/art/front/c/e/cec89c38-0b72-44b0-ac6c-7eb9503e1256.webp?1783939648",
+   "crop": "https://cards.scryfall.io/crop/front/c/e/cec89c38-0b72-44b0-ac6c-7eb9503e1256.webp?1783939648",
+   "jpeg": "https://cards.scryfall.io/normal/front/c/e/cec89c38-0b72-44b0-ac6c-7eb9503e1256.jpg?1783939648"
+  },
+  "set": "c13",
+  "collector_number": "197"
+ },
+ {
+  "object": "card",
+  "id": "464adbae-70ea-48e1-b8ae-b404766f7a5a",
+  "oracle_id": "526ca4a9-3f50-4f7a-8169-2bda95792401",
+  "name": "Seven Dwarves",
+  "layout": "normal",
+  "mana_cost": "{1}{R}",
+  "cmc": 2.0,
+  "type_line": "Creature — Dwarf",
+  "oracle_text": "This creature gets +1/+1 for each other creature named Seven Dwarves you control.\nA deck can have up to seven cards named Seven Dwarves.",
+  "colors": [
+   "R"
+  ],
+  "color_identity": [
+   "R"
+  ],
+  "legalities": {
+   "commander": "legal",
+   "vintage": "legal"
+  },
+  "game_changer": false,
+  "prices": {
+   "usd": "0.43",
+   "usd_foil": "0.83",
+   "usd_etched": null,
+   "eur": "0.50",
+   "eur_foil": "1.01",
+   "tix": "0.03"
+  },
+  "image_uris": {
+   "small": "https://cards.scryfall.io/small/front/4/6/464adbae-70ea-48e1-b8ae-b404766f7a5a.jpg?1783932616",
+   "normal": "https://cards.scryfall.io/normal/front/4/6/464adbae-70ea-48e1-b8ae-b404766f7a5a.jpg?1783932616",
+   "large": "https://cards.scryfall.io/large/front/4/6/464adbae-70ea-48e1-b8ae-b404766f7a5a.jpg?1783932616",
+   "png": "https://cards.scryfall.io/png/front/4/6/464adbae-70ea-48e1-b8ae-b404766f7a5a.png?1783932616",
+   "art_crop": "https://cards.scryfall.io/art_crop/front/4/6/464adbae-70ea-48e1-b8ae-b404766f7a5a.jpg?1783932616",
+   "border_crop": "https://cards.scryfall.io/border_crop/front/4/6/464adbae-70ea-48e1-b8ae-b404766f7a5a.jpg?1783932616",
+   "thumb": "https://cards.scryfall.io/thumb/front/4/6/464adbae-70ea-48e1-b8ae-b404766f7a5a.webp?1783932616",
+   "grid": "https://cards.scryfall.io/grid/front/4/6/464adbae-70ea-48e1-b8ae-b404766f7a5a.webp?1783932616",
+   "display": "https://cards.scryfall.io/display/front/4/6/464adbae-70ea-48e1-b8ae-b404766f7a5a.webp?1783932616",
+   "art": "https://cards.scryfall.io/art/front/4/6/464adbae-70ea-48e1-b8ae-b404766f7a5a.webp?1783932616",
+   "crop": "https://cards.scryfall.io/crop/front/4/6/464adbae-70ea-48e1-b8ae-b404766f7a5a.webp?1783932616",
+   "jpeg": "https://cards.scryfall.io/normal/front/4/6/464adbae-70ea-48e1-b8ae-b404766f7a5a.jpg?1783932616"
+  },
+  "set": "eld",
+  "collector_number": "141"
+ },
+ {
+  "object": "card",
+  "id": "fc817e07-c1f3-469f-9cf7-0945dea7400f",
+  "oracle_id": "6ad8011d-3471-4369-9d68-b264cc027487",
+  "name": "Sol Ring",
+  "layout": "normal",
+  "mana_cost": "{1}",
+  "cmc": 1.0,
+  "type_line": "Artifact",
+  "oracle_text": "{T}: Add {C}{C}.",
+  "colors": [],
+  "color_identity": [],
+  "produced_mana": [
+   "C"
+  ],
+  "legalities": {
+   "commander": "legal",
+   "vintage": "restricted"
+  },
+  "game_changer": false,
+  "prices": {
+   "usd": "1.14",
+   "usd_foil": null,
+   "usd_etched": null,
+   "eur": "0.84",
+   "eur_foil": null,
+   "tix": "0.07"
+  },
+  "image_uris": {
+   "small": "https://cards.scryfall.io/small/front/f/c/fc817e07-c1f3-469f-9cf7-0945dea7400f.jpg?1793021181",
+   "normal": "https://cards.scryfall.io/normal/front/f/c/fc817e07-c1f3-469f-9cf7-0945dea7400f.jpg?1793021181",
+   "large": "https://cards.scryfall.io/large/front/f/c/fc817e07-c1f3-469f-9cf7-0945dea7400f.jpg?1793021181",
+   "png": "https://cards.scryfall.io/png/front/f/c/fc817e07-c1f3-469f-9cf7-0945dea7400f.png?1793021181",
+   "art_crop": "https://cards.scryfall.io/art_crop/front/f/c/fc817e07-c1f3-469f-9cf7-0945dea7400f.jpg?1793021181",
+   "border_crop": "https://cards.scryfall.io/border_crop/front/f/c/fc817e07-c1f3-469f-9cf7-0945dea7400f.jpg?1793021181",
+   "thumb": "https://cards.scryfall.io/thumb/front/f/c/fc817e07-c1f3-469f-9cf7-0945dea7400f.webp?1793021181",
+   "grid": "https://cards.scryfall.io/grid/front/f/c/fc817e07-c1f3-469f-9cf7-0945dea7400f.webp?1793021181",
+   "display": "https://cards.scryfall.io/display/front/f/c/fc817e07-c1f3-469f-9cf7-0945dea7400f.webp?1793021181",
+   "art": "https://cards.scryfall.io/art/front/f/c/fc817e07-c1f3-469f-9cf7-0945dea7400f.webp?1793021181",
+   "crop": "https://cards.scryfall.io/crop/front/f/c/fc817e07-c1f3-469f-9cf7-0945dea7400f.webp?1793021181",
+   "jpeg": "https://cards.scryfall.io/normal/front/f/c/fc817e07-c1f3-469f-9cf7-0945dea7400f.jpg?1793021181"
+  },
+  "set": "trc",
+  "collector_number": "499"
+ },
+ {
+  "object": "card",
+  "id": "c470539a-9cc7-4175-8f7c-c982b6072b6d",
+  "oracle_id": "6ec2a242-9068-4ee2-8ac8-8341cc570f56",
+  "name": "Emeria's Call // Emeria, Shattered Skyclave",
+  "layout": "modal_dfc",
+  "cmc": 7.0,
+  "type_line": "Sorcery // Land",
+  "color_identity": [
+   "W"
+  ],
+  "produced_mana": [
+   "W"
+  ],
+  "legalities": {
+   "commander": "legal",
+   "vintage": "legal"
+  },
+  "game_changer": false,
+  "prices": {
+   "usd": "4.23",
+   "usd_foil": "5.22",
+   "usd_etched": null,
+   "eur": "3.26",
+   "eur_foil": "4.05",
+   "tix": "0.30"
+  },
+  "card_faces": [
+   {
+    "name": "Emeria's Call",
+    "mana_cost": "{4}{W}{W}{W}",
+    "type_line": "Sorcery",
+    "oracle_text": "Create two 4/4 white Angel Warrior creature tokens with flying. Non-Angel creatures you control gain indestructible until your next turn.",
+    "colors": [
+     "W"
+    ],
+    "image_uris": {
+     "small": "https://cards.scryfall.io/small/front/c/4/c470539a-9cc7-4175-8f7c-c982b6072b6d.jpg?1783929425",
+     "normal": "https://cards.scryfall.io/normal/front/c/4/c470539a-9cc7-4175-8f7c-c982b6072b6d.jpg?1783929425",
+     "large": "https://cards.scryfall.io/large/front/c/4/c470539a-9cc7-4175-8f7c-c982b6072b6d.jpg?1783929425",
+     "png": "https://cards.scryfall.io/png/front/c/4/c470539a-9cc7-4175-8f7c-c982b6072b6d.png?1783929425",
+     "art_crop": "https://cards.scryfall.io/art_crop/front/c/4/c470539a-9cc7-4175-8f7c-c982b6072b6d.jpg?1783929425",
+     "border_crop": "https://cards.scryfall.io/border_crop/front/c/4/c470539a-9cc7-4175-8f7c-c982b6072b6d.jpg?1783929425",
+     "thumb": "https://cards.scryfall.io/thumb/front/c/4/c470539a-9cc7-4175-8f7c-c982b6072b6d.webp?1783929425",
+     "grid": "https://cards.scryfall.io/grid/front/c/4/c470539a-9cc7-4175-8f7c-c982b6072b6d.webp?1783929425",
+     "display": "https://cards.scryfall.io/display/front/c/4/c470539a-9cc7-4175-8f7c-c982b6072b6d.webp?1783929425",
+     "art": "https://cards.scryfall.io/art/front/c/4/c470539a-9cc7-4175-8f7c-c982b6072b6d.webp?1783929425",
+     "crop": "https://cards.scryfall.io/crop/front/c/4/c470539a-9cc7-4175-8f7c-c982b6072b6d.webp?1783929425",
+     "jpeg": "https://cards.scryfall.io/normal/front/c/4/c470539a-9cc7-4175-8f7c-c982b6072b6d.jpg?1783929425"
+    }
+   },
+   {
+    "name": "Emeria, Shattered Skyclave",
+    "mana_cost": "",
+    "type_line": "Land",
+    "oracle_text": "As this land enters, you may pay 3 life. If you don't, it enters tapped.\n{T}: Add {W}.",
+    "colors": [],
+    "image_uris": {
+     "small": "https://cards.scryfall.io/small/back/c/4/c470539a-9cc7-4175-8f7c-c982b6072b6d.jpg?1783929425",
+     "normal": "https://cards.scryfall.io/normal/back/c/4/c470539a-9cc7-4175-8f7c-c982b6072b6d.jpg?1783929425",
+     "large": "https://cards.scryfall.io/large/back/c/4/c470539a-9cc7-4175-8f7c-c982b6072b6d.jpg?1783929425",
+     "png": "https://cards.scryfall.io/png/back/c/4/c470539a-9cc7-4175-8f7c-c982b6072b6d.png?1783929425",
+     "art_crop": "https://cards.scryfall.io/art_crop/back/c/4/c470539a-9cc7-4175-8f7c-c982b6072b6d.jpg?1783929425",
+     "border_crop": "https://cards.scryfall.io/border_crop/back/c/4/c470539a-9cc7-4175-8f7c-c982b6072b6d.jpg?1783929425",
+     "thumb": "https://cards.scryfall.io/thumb/back/c/4/c470539a-9cc7-4175-8f7c-c982b6072b6d.webp?1783929425",
+     "grid": "https://cards.scryfall.io/grid/back/c/4/c470539a-9cc7-4175-8f7c-c982b6072b6d.webp?1783929425",
+     "display": "https://cards.scryfall.io/display/back/c/4/c470539a-9cc7-4175-8f7c-c982b6072b6d.webp?1783929425",
+     "art": "https://cards.scryfall.io/art/back/c/4/c470539a-9cc7-4175-8f7c-c982b6072b6d.webp?1783929425",
+     "crop": "https://cards.scryfall.io/crop/back/c/4/c470539a-9cc7-4175-8f7c-c982b6072b6d.webp?1783929425",
+     "jpeg": "https://cards.scryfall.io/normal/back/c/4/c470539a-9cc7-4175-8f7c-c982b6072b6d.jpg?1783929425"
+    }
+   }
+  ],
+  "set": "znr",
+  "collector_number": "12"
+ },
+ {
+  "object": "card",
+  "id": "d0d33d52-3d28-4635-b985-51e126289259",
+  "oracle_id": "7e6b9b59-cd68-4e3c-827b-38833c92d6eb",
+  "name": "Atraxa, Praetors' Voice",
+  "layout": "normal",
+  "mana_cost": "{G}{W}{U}{B}",
+  "cmc": 4.0,
+  "type_line": "Legendary Creature — Phyrexian Angel Horror",
+  "oracle_text": "Flying, vigilance, deathtouch, lifelink\nAt the beginning of your end step, proliferate. (Choose any number of permanents and/or players, then give each another counter of each kind already there.)",
+  "colors": [
+   "B",
+   "G",
+   "U",
+   "W"
+  ],
+  "color_identity": [
+   "B",
+   "G",
+   "U",
+   "W"
+  ],
+  "legalities": {
+   "commander": "legal",
+   "vintage": "legal"
+  },
+  "game_changer": false,
+  "prices": {
+   "usd": "26.89",
+   "usd_foil": "33.39",
+   "usd_etched": null,
+   "eur": "22.89",
+   "eur_foil": "25.56",
+   "tix": "0.91"
+  },
+  "image_uris": {
+   "small": "https://cards.scryfall.io/small/front/d/0/d0d33d52-3d28-4635-b985-51e126289259.jpg?1783930136",
+   "normal": "https://cards.scryfall.io/normal/front/d/0/d0d33d52-3d28-4635-b985-51e126289259.jpg?1783930136",
+   "large": "https://cards.scryfall.io/large/front/d/0/d0d33d52-3d28-4635-b985-51e126289259.jpg?1783930136",
+   "png": "https://cards.scryfall.io/png/front/d/0/d0d33d52-3d28-4635-b985-51e126289259.png?1783930136",
+   "art_crop": "https://cards.scryfall.io/art_crop/front/d/0/d0d33d52-3d28-4635-b985-51e126289259.jpg?1783930136",
+   "border_crop": "https://cards.scryfall.io/border_crop/front/d/0/d0d33d52-3d28-4635-b985-51e126289259.jpg?1783930136",
+   "thumb": "https://cards.scryfall.io/thumb/front/d/0/d0d33d52-3d28-4635-b985-51e126289259.webp?1783930136",
+   "grid": "https://cards.scryfall.io/grid/front/d/0/d0d33d52-3d28-4635-b985-51e126289259.webp?1783930136",
+   "display": "https://cards.scryfall.io/display/front/d/0/d0d33d52-3d28-4635-b985-51e126289259.webp?1783930136",
+   "art": "https://cards.scryfall.io/art/front/d/0/d0d33d52-3d28-4635-b985-51e126289259.webp?1783930136",
+   "crop": "https://cards.scryfall.io/crop/front/d/0/d0d33d52-3d28-4635-b985-51e126289259.webp?1783930136",
+   "jpeg": "https://cards.scryfall.io/normal/front/d/0/d0d33d52-3d28-4635-b985-51e126289259.jpg?1783930136"
+  },
+  "set": "2xm",
+  "collector_number": "190"
+ },
+ {
+  "object": "card",
+  "id": "18303862-4726-4136-814f-157aa7006579",
+  "oracle_id": "ae92942b-919c-4ea9-b693-85fcef765d5a",
+  "name": "Fire // Ice",
+  "layout": "split",
+  "mana_cost": "{1}{R} // {1}{U}",
+  "cmc": 4.0,
+  "type_line": "Instant // Instant",
+  "colors": [
+   "R",
+   "U"
+  ],
+  "color_identity": [
+   "R",
+   "U"
+  ],
+  "legalities": {
+   "commander": "legal",
+   "vintage": "legal"
+  },
+  "game_changer": false,
+  "prices": {
+   "usd": "0.23",
+   "usd_foil": "0.35",
+   "usd_etched": null,
+   "eur": "0.27",
+   "eur_foil": "0.26",
+   "tix": "0.57"
+  },
+  "image_uris": {
+   "small": "https://cards.scryfall.io/small/front/1/8/18303862-4726-4136-814f-157aa7006579.jpg?1783918420",
+   "normal": "https://cards.scryfall.io/normal/front/1/8/18303862-4726-4136-814f-157aa7006579.jpg?1783918420",
+   "large": "https://cards.scryfall.io/large/front/1/8/18303862-4726-4136-814f-157aa7006579.jpg?1783918420",
+   "png": "https://cards.scryfall.io/png/front/1/8/18303862-4726-4136-814f-157aa7006579.png?1783918420",
+   "art_crop": "https://cards.scryfall.io/art_crop/front/1/8/18303862-4726-4136-814f-157aa7006579.jpg?1783918420",
+   "border_crop": "https://cards.scryfall.io/border_crop/front/1/8/18303862-4726-4136-814f-157aa7006579.jpg?1783918420",
+   "thumb": "https://cards.scryfall.io/thumb/front/1/8/18303862-4726-4136-814f-157aa7006579.webp?1783918420",
+   "grid": "https://cards.scryfall.io/grid/front/1/8/18303862-4726-4136-814f-157aa7006579.webp?1783918420",
+   "display": "https://cards.scryfall.io/display/front/1/8/18303862-4726-4136-814f-157aa7006579.webp?1783918420",
+   "art": "https://cards.scryfall.io/art/front/1/8/18303862-4726-4136-814f-157aa7006579.webp?1783918420",
+   "crop": "https://cards.scryfall.io/crop/front/1/8/18303862-4726-4136-814f-157aa7006579.webp?1783918420",
+   "jpeg": "https://cards.scryfall.io/normal/front/1/8/18303862-4726-4136-814f-157aa7006579.jpg?1783918420"
+  },
+  "card_faces": [
+   {
+    "name": "Fire",
+    "mana_cost": "{1}{R}",
+    "type_line": "Instant",
+    "oracle_text": "Fire deals 2 damage divided as you choose among one or two targets."
+   },
+   {
+    "name": "Ice",
+    "mana_cost": "{1}{U}",
+    "type_line": "Instant",
+    "oracle_text": "Tap target permanent.\nDraw a card."
+   }
+  ],
+  "set": "dmr",
+  "collector_number": "215"
+ },
+ {
+  "object": "card",
+  "id": "6904ea20-e504-47da-95a0-08739fdde260",
+  "oracle_id": "edd531b9-f615-4399-8c8c-1c5e18c4acbf",
+  "name": "Delver of Secrets // Insectile Aberration",
+  "layout": "transform",
+  "cmc": 1.0,
+  "type_line": "Creature — Human Wizard // Creature — Human Insect",
+  "color_identity": [
+   "U"
+  ],
+  "legalities": {
+   "commander": "legal",
+   "vintage": "legal"
+  },
+  "game_changer": false,
+  "prices": {
+   "usd": "0.29",
+   "usd_foil": "0.33",
+   "usd_etched": null,
+   "eur": "0.49",
+   "eur_foil": "0.58",
+   "tix": "0.04"
+  },
+  "card_faces": [
+   {
+    "name": "Delver of Secrets",
+    "mana_cost": "{U}",
+    "type_line": "Creature — Human Wizard",
+    "oracle_text": "At the beginning of your upkeep, look at the top card of your library. You may reveal that card. If an instant or sorcery card is revealed this way, transform this creature.",
+    "colors": [
+     "U"
+    ],
+    "image_uris": {
+     "small": "https://cards.scryfall.io/small/front/6/9/6904ea20-e504-47da-95a0-08739fdde260.jpg?1783908173",
+     "normal": "https://cards.scryfall.io/normal/front/6/9/6904ea20-e504-47da-95a0-08739fdde260.jpg?1783908173",
+     "large": "https://cards.scryfall.io/large/front/6/9/6904ea20-e504-47da-95a0-08739fdde260.jpg?1783908173",
+     "png": "https://cards.scryfall.io/png/front/6/9/6904ea20-e504-47da-95a0-08739fdde260.png?1783908173",
+     "art_crop": "https://cards.scryfall.io/art_crop/front/6/9/6904ea20-e504-47da-95a0-08739fdde260.jpg?1783908173",
+     "border_crop": "https://cards.scryfall.io/border_crop/front/6/9/6904ea20-e504-47da-95a0-08739fdde260.jpg?1783908173",
+     "thumb": "https://cards.scryfall.io/thumb/front/6/9/6904ea20-e504-47da-95a0-08739fdde260.webp?1783908173",
+     "grid": "https://cards.scryfall.io/grid/front/6/9/6904ea20-e504-47da-95a0-08739fdde260.webp?1783908173",
+     "display": "https://cards.scryfall.io/display/front/6/9/6904ea20-e504-47da-95a0-08739fdde260.webp?1783908173",
+     "art": "https://cards.scryfall.io/art/front/6/9/6904ea20-e504-47da-95a0-08739fdde260.webp?1783908173",
+     "crop": "https://cards.scryfall.io/crop/front/6/9/6904ea20-e504-47da-95a0-08739fdde260.webp?1783908173",
+     "jpeg": "https://cards.scryfall.io/normal/front/6/9/6904ea20-e504-47da-95a0-08739fdde260.jpg?1783908173"
+    }
+   },
+   {
+    "name": "Insectile Aberration",
+    "mana_cost": "",
+    "type_line": "Creature — Human Insect",
+    "oracle_text": "Flying",
+    "colors": [
+     "U"
+    ],
+    "image_uris": {
+     "small": "https://cards.scryfall.io/small/back/6/9/6904ea20-e504-47da-95a0-08739fdde260.jpg?1783908173",
+     "normal": "https://cards.scryfall.io/normal/back/6/9/6904ea20-e504-47da-95a0-08739fdde260.jpg?1783908173",
+     "large": "https://cards.scryfall.io/large/back/6/9/6904ea20-e504-47da-95a0-08739fdde260.jpg?1783908173",
+     "png": "https://cards.scryfall.io/png/back/6/9/6904ea20-e504-47da-95a0-08739fdde260.png?1783908173",
+     "art_crop": "https://cards.scryfall.io/art_crop/back/6/9/6904ea20-e504-47da-95a0-08739fdde260.jpg?1783908173",
+     "border_crop": "https://cards.scryfall.io/border_crop/back/6/9/6904ea20-e504-47da-95a0-08739fdde260.jpg?1783908173",
+     "thumb": "https://cards.scryfall.io/thumb/back/6/9/6904ea20-e504-47da-95a0-08739fdde260.webp?1783908173",
+     "grid": "https://cards.scryfall.io/grid/back/6/9/6904ea20-e504-47da-95a0-08739fdde260.webp?1783908173",
+     "display": "https://cards.scryfall.io/display/back/6/9/6904ea20-e504-47da-95a0-08739fdde260.webp?1783908173",
+     "art": "https://cards.scryfall.io/art/back/6/9/6904ea20-e504-47da-95a0-08739fdde260.webp?1783908173",
+     "crop": "https://cards.scryfall.io/crop/back/6/9/6904ea20-e504-47da-95a0-08739fdde260.webp?1783908173",
+     "jpeg": "https://cards.scryfall.io/normal/back/6/9/6904ea20-e504-47da-95a0-08739fdde260.jpg?1783908173"
+    }
+   }
+  ],
+  "set": "inr",
+  "collector_number": "60"
+ }
+]
