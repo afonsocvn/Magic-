@@ -12,7 +12,8 @@
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy",
     "import:scryfall": "tsx scripts/import-scryfall.ts",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "db:seed": "tsx scripts/seed-categories.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",

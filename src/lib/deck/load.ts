@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import type { PrismaClient } from "@prisma/client";
 import { resolveEntries, type Resolved } from "@/lib/cards/resolve";
+import { classifyCard, type Classification } from "@/lib/categories/classify";
 import { canonicalDeckText, parseDecklist } from "./parser";
 import type { DeckEntry } from "./types";
 import { validateDeck, type ValidationResult } from "./validate";
@@ -15,6 +16,8 @@ export type LoadedDeck = {
   notFound: DeckEntry[];
   ignored: DeckEntry[];
   validation: ValidationResult;
+  /** Categorias de cada carta, por id */
+  classification: Map<string, Classification>;
   lookupError?: string;
 };
 
@@ -43,5 +46,11 @@ export async function loadDeck(db: PrismaClient, text: string): Promise<LoadedDe
       message: "Não foi possível consultar o Scryfall para as cartas em falta. Tenta de novo daqui a pouco.",
     });
   }
-  return { commander, main, notFound, ignored, validation, lookupError };
+  const ids = [...new Set(resolved.map((r) => r.card.id))];
+  const overrides = await db.cardCategory.findMany({ where: { cardId: { in: ids } } });
+  const classification = new Map(
+    resolved.map((r) => [r.card.id, classifyCard(r.card, overrides.filter((o) => o.cardId === r.card.id))]),
+  );
+
+  return { commander, main, notFound, ignored, validation, classification, lookupError };
 }

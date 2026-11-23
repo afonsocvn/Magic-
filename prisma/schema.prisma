@@ -40,13 +40,30 @@ model Card {
   imageUris         Json?
   /// Faces de cartas com várias faces: [{ name, manaCost, typeLine, oracleText, colors, imageUris }]
   faces             Json?
+  /// Categorias vindas das tags do Scryfall Tagger (bulk oracle_tags),
+  /// ex.: "ramp,draw". null = a carta não tem nenhuma tag no Tagger.
+  tagCategories     String?
   /// "bulk" ou "collection" (carta que faltava no bulk)
   source            String   @default("bulk")
   updatedAt         DateTime @updatedAt
 
-  names CardName[]
+  names      CardName[]
+  categories CardCategory[]
 
   @@index([name])
+}
+
+/// Correções manuais à classificação (têm sempre prioridade).
+/// Carregadas de data/category-overrides.json com `npm run db:seed`.
+model CardCategory {
+  cardId   String
+  category String
+  /// true = a carta TEM esta categoria; false = NÃO tem
+  include  Boolean
+  note     String?
+  card     Card    @relation(fields: [cardId], references: [id], onDelete: Cascade)
+
+  @@id([cardId, category])
 }
 
 /// Nomes normalizados pelos quais uma carta pode ser encontrada

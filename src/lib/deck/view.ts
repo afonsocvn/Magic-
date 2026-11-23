@@ -1,4 +1,6 @@
 import type { DeckCard } from "@/lib/cards/types";
+import type { Classification } from "@/lib/categories/classify";
+import { CATEGORY_LABELS } from "@/lib/categories/types";
 import { groupDeck, priceCents, type Currency, type DeckLine } from "./groups";
 
 /** O que o browser precisa de cada carta (só dados simples). */
@@ -20,11 +22,13 @@ export type ViewCard = {
   priceUsd: number | null;
   gameChanger: boolean;
   faces: ViewFace[];
+  /** Ex.: [{ label: "Rampa", source: "tagger" }] */
+  categories: { label: string; source: string }[];
 };
 
 export type ViewGroup = { key: string; label: string; count: number; totalCents: number; cards: ViewCard[] };
 
-export function toViewCard(card: DeckCard, quantity: number, currency: Currency): ViewCard {
+export function toViewCard(card: DeckCard, quantity: number, currency: Currency, cls?: Classification): ViewCard {
   const top = card.imageUris;
   const faces: ViewFace[] =
     card.faces && card.faces.length
@@ -56,15 +60,20 @@ export function toViewCard(card: DeckCard, quantity: number, currency: Currency)
     priceUsd: card.priceUsdCents,
     gameChanger: card.gameChanger,
     faces,
+    categories: (cls?.categories ?? []).map((c) => ({ label: CATEGORY_LABELS[c], source: cls!.sources[c]! })),
   };
 }
 
-export function toViewGroups(lines: DeckLine<DeckCard>[], currency: Currency): ViewGroup[] {
+export function toViewGroups(
+  lines: DeckLine<DeckCard>[],
+  currency: Currency,
+  classification?: Map<string, Classification>,
+): ViewGroup[] {
   return groupDeck(lines, currency).map((g) => ({
     key: g.key,
     label: g.label,
     count: g.count,
     totalCents: g.totalCents,
-    cards: g.lines.map((l) => toViewCard(l.card, l.quantity, currency)),
+    cards: g.lines.map((l) => toViewCard(l.card, l.quantity, currency, classification?.get(l.card.id))),
   }));
 }

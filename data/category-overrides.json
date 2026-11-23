@@ -1,0 +1,17 @@
+{
+  "_leia-me": "Correções à classificação automática. Têm sempre prioridade. 'add' junta categorias, 'remove' tira. Categorias: land, ramp, draw, removal, wipe, counter, protection, tutor, recursion, wincon. Depois de editar: npm run db:seed",
+  "cards": [
+    { "name": "Path to Exile", "remove": ["ramp"], "note": "o terreno vai para o adversário" },
+    { "name": "Swords to Plowshares", "remove": ["ramp"], "note": "" },
+    { "name": "Thassa's Oracle", "add": ["wincon"], "note": "combo com Demonic Consultation / Tainted Pact" },
+    { "name": "Laboratory Maniac", "add": ["wincon"] },
+    { "name": "Jace, Wielder of Mysteries", "add": ["wincon"] },
+    { "name": "Craterhoof Behemoth", "add": ["wincon"] },
+    { "name": "Torment of Hailfire", "add": ["wincon"], "remove": ["removal"] },
+    { "name": "Exsanguinate", "add": ["wincon"] },
+    { "name": "Approach of the Second Sun", "add": ["wincon"] },
+    { "name": "Triumph of the Hordes", "add": ["wincon"] },
+    { "name": "Insurrection", "add": ["wincon"] },
+    { "name": "Rite of Replication", "add": ["wincon"] }
+  ]
+}

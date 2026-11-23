@@ -8,7 +8,9 @@
  *   npm run import:scryfall -- --no-fill-prices   # não preenche preços em falta
  *
  * Depois do oracle_cards, as cartas cuja impressão escolhida não tem preço
- * recebem o preço da impressão mais barata (bulk default_cards).
+ * recebem o preço da impressão mais barata (bulk default_cards), e as
+ * categorias (rampa, draw…) vêm das tags do Scryfall Tagger (bulk oracle_tags).
+ *   npm run import:scryfall -- --tags-only   # só atualiza as categorias
  */
 import { createReadStream } from "node:fs";
 import { createInterface } from "node:readline";
@@ -19,6 +21,7 @@ import { upsertCards } from "@/lib/cards/store";
 import { fetchBulkInfo, scryfallHeaders } from "@/lib/scryfall/client";
 import { isGameCard, mapScryfallCard, type CardData } from "@/lib/scryfall/map";
 import { addPrinting, type PriceAcc } from "@/lib/scryfall/prices";
+import { categoriesFromTags, type OracleTag } from "@/lib/categories/tags";
 import type { ScryfallCard } from "@/lib/scryfall/types";
 
 const BATCH = 1000;
@@ -80,12 +83,31 @@ async function fillMissingPrices() {
   console.log(`Preços em falta: ${missing.length} cartas, ${updates.length} preenchidas com a impressão mais barata (${secs}s).`);
 }
 
+/** Categorias a partir do bulk oracle_tags (Scryfall Tagger). */
+async function importTags() {
+  const info = await fetchBulkInfo("oracle_tags");
+  const tags: OracleTag[] = [];
+  await readLines(undefined, info.jsonl_download_uri ?? info.download_uri, (t) => {
+    const tag = t as unknown as OracleTag & { type?: string };
+    if (tag.type === undefined || tag.type === "oracle") tags.push(tag);
+  });
+  const cats = categoriesFromTags(tags);
+  const known = new Set((await prisma.card.findMany({ select: { id: true } })).map((c) => c.id));
+  const updates = [prisma.card.updateMany({ data: { tagCategories: null } })];
+  for (const [id, set] of cats) {
+    if (known.has(id)) updates.push(prisma.card.updateMany({ where: { id }, data: { tagCategories: [...set].join(",") } }));
+  }
+  for (let i = 0; i < updates.length; i += 1000) await prisma.$transaction(updates.slice(i, i + 1000));
+  console.log(`Tags do Scryfall Tagger: ${tags.length} tags, ${updates.length - 1} cartas com tags.`);
+}
+
 async function main() {
   const args = process.argv.slice(2);
   const force = args.includes("--force");
   const fileIdx = args.indexOf("--file");
   const file = fileIdx >= 0 ? args[fileIdx + 1] : undefined;
   const fillPrices = !args.includes("--no-fill-prices") && !file;
+  if (args.includes("--tags-only")) return importTags();
 
   let bulkUpdatedAt: Date | null = null;
   let url: string | undefined;
@@ -135,6 +157,7 @@ async function main() {
     });
     console.log(`\r${count} cartas importadas em ${secs}s (${skipped} tokens/art cards ignorados).`);
     if (fillPrices) await fillMissingPrices();
+    if (!file) await importTags();
   } catch (err) {
     await prisma.importRun.update({
       where: { id: run.id },

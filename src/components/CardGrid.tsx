@@ -6,6 +6,8 @@ import { formatPrice, type Currency } from "@/lib/deck/groups";
 import type { ViewCard, ViewGroup } from "@/lib/deck/view";
 import { ManaCost, OracleText } from "./Mana";
 
+const SOURCE_LABEL: Record<string, string> = { tagger: "Scryfall Tagger", regra: "regra", "correção": "correção manual" };
+
 export function CardGrid({ groups, currency }: { groups: ViewGroup[]; currency: Currency }) {
   const [open, setOpen] = useState<ViewCard | null>(null);
 
@@ -161,6 +163,18 @@ function CardDialog({ card, currency, onClose }: { card: ViewCard | null; curren
                   <dd className="num">{card.quantity}</dd>
                 </>
               )}
+              <dt className="text-ink-2">Categorias</dt>
+              <dd>
+                {card.categories.length
+                  ? card.categories.map((c, i) => (
+                      <span key={c.label}>
+                        {i > 0 && ", "}
+                        {c.label}
+                        <span className="text-ink-2 text-xs"> ({SOURCE_LABEL[c.source] ?? c.source})</span>
+                      </span>
+                    ))
+                  : <span className="text-ink-2">nenhuma</span>}
+              </dd>
               {card.gameChanger && (
                 <>
                   <dt className="text-ink-2">Game Changer</dt>
