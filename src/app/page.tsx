@@ -1,18 +1,29 @@
 import { DeckForm } from "@/components/DeckForm";
+import { MyDecks } from "@/components/MyDecks";
 import { prisma } from "@/lib/db";
 
-export default async function Home({ searchParams }: { searchParams: Promise<{ from?: string }> }) {
-  const { from } = await searchParams;
+export default async function Home({ searchParams }: { searchParams: Promise<{ from?: string; base?: string }> }) {
+  const { from, base } = await searchParams;
   const previous = from ? await prisma.deck.findUnique({ where: { id: from } }) : null;
+  const baseDeck = base && /^[0-9a-f]{16}$/.test(base) ? await prisma.deck.findUnique({ where: { id: base } }) : null;
 
   return (
     <div className="grid gap-10 md:grid-cols-[minmax(0,1fr)_17rem]">
       <section>
-        <h1 className="text-2xl mb-1">Colar a decklist</h1>
+        <h1 className="text-2xl mb-1">{baseDeck ? "Nova versão do deck" : "Colar a decklist"}</h1>
         <p className="text-ink-2 mb-6 max-w-prose">
-          Uma carta por linha. O comandante vai debaixo de <code className="num text-ink">{"// COMMANDER"}</code>.
+          {baseDeck ? (
+            "Muda as cartas que quiseres. Ao avaliar, vês esta versão lado a lado com a anterior."
+          ) : (
+            <>
+              Uma carta por linha. O comandante vai debaixo de <code className="num text-ink">{"// COMMANDER"}</code>.
+            </>
+          )}
         </p>
-        <DeckForm initialText={previous?.text} />
+        <DeckForm initialText={previous?.text} baseId={baseDeck?.id} />
+        <div className="mt-12">
+          <MyDecks />
+        </div>
       </section>
 
       <aside className="text-sm md:border-l md:border-rule md:pl-6 space-y-5">

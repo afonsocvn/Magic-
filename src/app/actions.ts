@@ -15,5 +15,11 @@ export async function submitDeck(_prev: SubmitState, form: FormData): Promise<Su
 
   const id = deckId(text);
   await prisma.deck.upsert({ where: { id }, create: { id, text }, update: {} });
+
+  // Nova versão de um deck: vai direto para a comparação.
+  const base = String(form.get("base") ?? "");
+  if (/^[0-9a-f]{16}$/.test(base) && base !== id && (await prisma.deck.findUnique({ where: { id: base } }))) {
+    redirect(`/comparar?a=${base}&b=${id}`);
+  }
   redirect(`/deck/${id}`);
 }

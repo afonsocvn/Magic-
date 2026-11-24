@@ -2,17 +2,15 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CardGrid } from "@/components/CardGrid";
 import { ColorPips } from "@/components/ColorPips";
+import { RememberDeck } from "@/components/RememberDeck";
 import { ValidationReport } from "@/components/ValidationReport";
 import { prisma } from "@/lib/db";
 import { deckTotal, formatPrice, mergeLines, type Currency } from "@/lib/deck/groups";
 import { loadDeck } from "@/lib/deck/load";
 import { parseEvalParams, type RawParams } from "@/lib/deck/params";
+import { evaluateLoadedDeck } from "@/lib/deck/evaluation";
 import { EvaluationView } from "@/components/eval/EvaluationView";
 import { SeatView } from "@/components/eval/SeatView";
-import { evaluateDeck } from "@/lib/math/evaluate";
-import type { EvalCard } from "@/lib/math/mana";
-import type { DeckCard } from "@/lib/cards/types";
-import type { Classification } from "@/lib/categories/classify";
 import { toViewCard, toViewGroups, type ViewGroup } from "@/lib/deck/view";
 
 export const dynamic = "force-dynamic";
@@ -62,22 +60,7 @@ export default async function DeckPage({
     ...toViewGroups(mainLines, currency, loaded.classification),
   ];
 
-  const toEval = (card: DeckCard, quantity: number): EvalCard => ({
-    ...card,
-    quantity,
-    categories: (loaded.classification.get(card.id) as Classification).categories,
-  });
-  const evaluation =
-    tab !== "cartas"
-      ? evaluateDeck({
-          deck: mergeLines(mainLines).map((l) => toEval(l.card, l.quantity)),
-          commander: commander ? toEval(commander, 1) : null,
-          identity: commander?.colorIdentity ?? "",
-          templateId: evalParams.template,
-          context: evalParams.context,
-          hands: evalParams.hands,
-        })
-      : null;
+  const evaluation = tab !== "cartas" ? evaluateLoadedDeck(loaded, evalParams) : null;
 
   const moedaHref = (c: Currency) => {
     const sp = new URLSearchParams(Object.entries(raw).filter((e): e is [string, string] => typeof e[1] === "string"));
@@ -102,9 +85,13 @@ export default async function DeckPage({
           <h1 className="text-2xl">
             {commander ? commander.name : "—"} {commander && <ColorPips identity={commander.colorIdentity} size={18} />}
           </h1>
-          <Link href={`/?from=${id}`} className="text-sm">
-            Editar lista
-          </Link>
+          <div className="mt-1 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+            <Link href={`/?from=${id}&base=${id}`}>Fazer uma versão</Link>
+            <Link href={`/?from=${id}`} className="text-ink-2">
+              Editar lista
+            </Link>
+            {commander && <RememberDeck id={id} commander={commander.name} identity={commander.colorIdentity} />}
+          </div>
         </div>
 
         <div className="text-right">

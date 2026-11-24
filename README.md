@@ -86,6 +86,22 @@ proteção, tutor, recursão, wincon), por ordem de prioridade:
 - Nota 0–100: contagens 40 + mana 30 + mão inicial 30, com cada parcela
   explicada na página.
 
+## Gráficos e comparação
+
+- **Perfil do deck** (separador Avaliação): radar com 10 eixos em escala
+  0–10 (rampa, draw, interação, wipes, proteção, tutors, recursão, fecho,
+  mana, velocidade; a fórmula de cada eixo está na página), dois gráficos
+  de quadrantes (estilo de jogo: velocidade × interação; de que é feito:
+  criaturas × velocidade), barras de tipos de carta e de símbolos vs.
+  fontes por cor.
+- **Fazer uma versão**: no deck, abre o editor com a lista; ao avaliar vai
+  direto para `/comparar?a=<base>&b=<nova>`.
+- **Comparar** (`/comparar`): cartas que saíram e entraram, nota e cada
+  parcela com Δ, métricas lado a lado (verde = melhor, vermelho = pior),
+  curva, radar e quadrantes das duas versões sobrepostos.
+- **Os meus decks** (página inicial): lista guardada só no browser
+  (localStorage), com nome para cada versão; seleciona dois para comparar.
+
 ## Estrutura
 
 ```
@@ -97,7 +113,9 @@ src/lib/deck/             parser da decklist e validação
 src/lib/deck/groups.ts    agrupar por tipo, preços e totais
 src/lib/categories/       classificação das cartas (tags + regras + correções)
 src/lib/math/             hipergeométrica, mana, templates, mesa, nota,
-                          desenvolvimento (DP), lugares, onde melhorar
+                          desenvolvimento (DP), lugares, onde melhorar, perfil
+src/lib/deck/compare.ts   diferenças entre duas versões
+src/components/charts/    radar, quadrantes, barras
 data/category-overrides.json
 src/components/           grelha de cartas, modal, símbolos de mana
 src/app/                  páginas (colar deck, resultado)

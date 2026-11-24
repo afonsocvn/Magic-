@@ -11,11 +11,12 @@ const PLACEHOLDER = `// COMMANDER
 1 Swords to Plowshares
 …`;
 
-export function DeckForm({ initialText = "" }: { initialText?: string }) {
+export function DeckForm({ initialText = "", baseId }: { initialText?: string; baseId?: string }) {
   const [state, action, pending] = useActionState<SubmitState, FormData>(submitDeck, {});
 
   return (
     <form action={action} className="space-y-3">
+      {baseId && <input type="hidden" name="base" value={baseId} />}
       <label htmlFor="decklist" className="block text-sm text-ink-2">
         Decklist
       </label>
@@ -39,7 +40,7 @@ export function DeckForm({ initialText = "" }: { initialText?: string }) {
           disabled={pending}
           className="border border-ink bg-ink px-4 py-1.5 text-sm text-paper hover:bg-accent hover:border-accent disabled:opacity-60"
         >
-          {pending ? "A verificar…" : "Avaliar deck"}
+          {pending ? "A verificar…" : baseId ? "Avaliar e comparar" : "Avaliar deck"}
         </button>
         <span className="text-xs text-ink-2">Nada é guardado além do texto da lista.</span>
       </div>
