@@ -9,6 +9,7 @@ import { EvalControls } from "./EvalControls";
 import { HandHeatmap } from "./HandHeatmap";
 import { ManaCurve } from "./ManaCurve";
 import { StatusMark } from "./StatusMark";
+import { Improvements } from "./Improvements";
 
 const probStatus = (p: number): Status => (p >= 0.9 ? "ok" : p >= 0.75 ? "warn" : "bad");
 
@@ -68,6 +69,8 @@ export function EvaluationView({ e, params, valid }: { e: Evaluation; params: Ev
           </tbody>
         </table>
       </section>
+
+      <Improvements items={e.improvements} />
 
       {/* Template */}
       <section aria-labelledby="contagens" className="space-y-3">
@@ -259,40 +262,6 @@ export function EvaluationView({ e, params, valid }: { e: Evaluation; params: Ev
             hands={e.hands}
           />
         </div>
-      </section>
-
-      {/* Lugar na mesa */}
-      <section aria-labelledby="mesa" className="space-y-3">
-        <H2 id="mesa">
-          Lugar na mesa: {ctx.seat}.º de {ctx.players}
-        </H2>
-        <table className="num w-full max-w-xl text-sm">
-          <thead>
-            <tr className="text-left text-xs text-ink-2 font-sans">
-              <th className="py-1 pr-3 font-normal">O teu turno</th>
-              <th className="py-1 pr-3 font-normal text-right">Cartas vistas</th>
-              <th className="py-1 pr-3 font-normal text-right">Turnos dos adversários antes</th>
-              <th className="py-1 font-normal text-right">P(não falhar terreno)</th>
-            </tr>
-          </thead>
-          <tbody>
-            {e.landDrops.map((d) => (
-              <tr key={d.turn} className="border-t border-rule/60">
-                <td className="py-1 pr-3">{d.turn}</td>
-                <td className="py-1 pr-3 text-right">{d.cardsSeen}</td>
-                <td className="py-1 pr-3 text-right">{d.opponentTurns}</td>
-                <td className="py-1 text-right">{pct(d.probability)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <p className="text-xs text-ink-2 max-w-prose">
-          P(ter pelo menos t terrenos entre as cartas vistas até ao teu turno t), sem contar mulligans.{" "}
-          {ctx.seat === 1 && !ctx.firstPlayerDraws
-            ? "Quem começa não compra no 1.º turno: vê menos uma carta."
-            : "Compras no 1.º turno."}{" "}
-          Os gráficos e a análise completa por lugar ficam para a fase 5.
-        </p>
       </section>
 
       {/* Categorias */}

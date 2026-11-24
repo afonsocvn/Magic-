@@ -3,7 +3,10 @@ import { CATEGORIES } from "@/lib/categories/types";
 import { bestRampFor, DEFAULT_HANDS, goodHandProbability, heatmap, withinHands, type Heatmap } from "./hypergeometric";
 import { averageCmc, colorRequirements, karstenLands, manaCurve, tappedLands, type ColorRequirement, type EvalCard, type TappedLands } from "./mana";
 import { computeScore, type Score } from "./score";
-import { cardsKept, cardsSeen, landDropProbability, opponentTurnsBefore, type TableContext } from "./table";
+import { cardsKept, cardsSeen, opponentTurnsBefore, type TableContext } from "./table";
+import { improvements, type Improvement } from "./improvements";
+import { analyseAllSeats, type DeckProfile, type SeatAnalysis } from "./seats";
+import { seatAdvice, type SeatAdvice } from "./seatAdvice";
 import { TEMPLATES, templateRowScore, templateStatus, type Status, type TemplateId } from "./templates";
 
 export const CHEAP_RAMP_MV = 2;
@@ -30,6 +33,11 @@ export type Evaluation = {
   };
   landDrops: { turn: number; cardsSeen: number; probability: number; opponentTurns: number }[];
   score: Score;
+  profile: DeckProfile;
+  /** Uma análise por lugar (1..nº de jogadores) */
+  seats: SeatAnalysis[];
+  seatAdvice: SeatAdvice;
+  improvements: Improvement[];
 };
 
 const sum = (cs: EvalCard[]) => cs.reduce((s, c) => s + c.quantity, 0);
@@ -90,10 +98,23 @@ export function evaluateDeck({
     heatmap: map,
   };
 
+  const interactionCards = deck.filter((c) => ["removal", "wipe", "counter"].some((cat) => c.categories.includes(cat)));
+  const meanCheapMv = cheapRamp.count ? cheap.reduce((s, c) => s + c.cmc * c.quantity, 0) / cheapRamp.count : 2;
+  const profile: DeckProfile = {
+    N,
+    lands,
+    cheapRamp: cheapRamp.count,
+    rampCost: Math.min(2, Math.max(1, Math.round(meanCheapMv))),
+    interaction: sum(interactionCards),
+    commanderMv: commander ? Math.ceil(commander.cmc) : null,
+  };
+  const seats = analyseAllSeats(profile, context);
+  const mySeat = seats[context.seat - 1];
+
   const landDrops = [1, 2, 3, 4, 5].map((turn) => ({
     turn,
     cardsSeen: cardsSeen(context, turn),
-    probability: landDropProbability(context, lands, turn, N),
+    probability: mySeat.development[turn - 1].allLandDrops,
     opponentTurns: opponentTurnsBefore(context, turn),
   }));
 
@@ -109,7 +130,30 @@ export function evaluateDeck({
     bestHandProbability: map.max.p,
   });
 
+  const improvementList = improvements({
+    score,
+    template,
+    lands,
+    cheapRamp: cheapRamp.count,
+    karsten,
+    colors,
+    nonlandCmcs: deck.filter((c) => !c.categories.includes("land")).flatMap((c) => Array(c.quantity).fill(c.cmc)),
+    avgCmc,
+    tappedAlways: tapped.always,
+    hands,
+    N,
+    bestRamp: hand.bestRamp,
+    maxHand: map.max.p,
+    interaction: profile.interaction,
+    seat: mySeat,
+    context,
+  });
+
   return {
+    profile,
+    seats,
+    seatAdvice: seatAdvice(profile, context, seats, single),
+    improvements: improvementList,
     context,
     templateId,
     hands,

@@ -8,6 +8,7 @@ import { deckTotal, formatPrice, mergeLines, type Currency } from "@/lib/deck/gr
 import { loadDeck } from "@/lib/deck/load";
 import { parseEvalParams, type RawParams } from "@/lib/deck/params";
 import { EvaluationView } from "@/components/eval/EvaluationView";
+import { SeatView } from "@/components/eval/SeatView";
 import { evaluateDeck } from "@/lib/math/evaluate";
 import type { EvalCard } from "@/lib/math/mana";
 import type { DeckCard } from "@/lib/cards/types";
@@ -29,7 +30,7 @@ export default async function DeckPage({
   const raw = await searchParams;
   const evalParams = parseEvalParams(raw);
   const currency: Currency = evalParams.currency;
-  const tab = raw.v === "avaliacao" ? "avaliacao" : "cartas";
+  const tab = raw.v === "avaliacao" || raw.v === "mesa" ? raw.v : "cartas";
   const deck = await prisma.deck.findUnique({ where: { id } });
   if (!deck) notFound();
 
@@ -67,7 +68,7 @@ export default async function DeckPage({
     categories: (loaded.classification.get(card.id) as Classification).categories,
   });
   const evaluation =
-    tab === "avaliacao"
+    tab !== "cartas"
       ? evaluateDeck({
           deck: mergeLines(mainLines).map((l) => toEval(l.card, l.quantity)),
           commander: commander ? toEval(commander, 1) : null,
@@ -85,7 +86,7 @@ export default async function DeckPage({
     const q = sp.toString();
     return `/deck/${id}${q ? `?${q}` : ""}`;
   };
-  const tabHref = (v: "cartas" | "avaliacao") => {
+  const tabHref = (v: "cartas" | "avaliacao" | "mesa") => {
     const sp = new URLSearchParams(Object.entries(raw).filter((e): e is [string, string] => typeof e[1] === "string"));
     if (v === "cartas") sp.delete("v");
     else sp.set("v", v);
@@ -132,6 +133,7 @@ export default async function DeckPage({
           [
             ["cartas", "Cartas"],
             ["avaliacao", "Avaliação"],
+            ["mesa", "Lugar na mesa"],
           ] as const
         ).map(([v, label]) =>
           v === tab ? (
@@ -146,7 +148,9 @@ export default async function DeckPage({
         )}
       </nav>
 
-      {evaluation ? (
+      {evaluation && tab === "mesa" ? (
+        <SeatView e={evaluation} params={evalParams} valid={loaded.validation.ok} />
+      ) : evaluation ? (
         <EvaluationView e={evaluation} params={evalParams} valid={loaded.validation.ok} />
       ) : (
         <>

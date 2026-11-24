@@ -47,7 +47,10 @@ export function opponentTurnsBefore(ctx: TableContext, turn: number): number {
   return ctx.seat - 1 + (turn - 1) * (ctx.players - 1);
 }
 
-/** P(ter pelo menos t terrenos até ao meu turno t) — não falhar a jogada de terreno. */
+/**
+ * P(ter pelo menos t terrenos entre as cartas vistas até ao turno t).
+ * Para "jogar terreno em TODOS os turnos até t" usa manaDevelopment (development.ts).
+ */
 export function landDropProbability(ctx: TableContext, lands: number, turn: number, N = LIBRARY_SIZE): number {
   return atLeast(N, lands, cardsSeen(ctx, turn), turn);
 }

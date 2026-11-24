@@ -66,3 +66,14 @@ describe("fontes de cor", () => {
     expect(red.hardest!.probability).toBeLessThan(0.2);
   });
 });
+
+describe("cartas com X", () => {
+  it("contam um turno mais tarde (X ≥ 1)", () => {
+    const deck = [
+      land("Forest", { quantity: 36, producedMana: "G" }),
+      card("Chord of Calling", { cmc: 3, manaCost: "{X}{G}{G}{G}" }),
+    ];
+    const [g] = colorRequirements(deck, null, "G", defaultContext(4, 1));
+    expect(g.hardest).toMatchObject({ name: "Chord of Calling", pips: 3, turn: 4, cardsSeen: 11 });
+  });
+});

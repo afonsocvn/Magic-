@@ -73,7 +73,16 @@ proteção, tutor, recursão, wincon), por ordem de prioridade:
   terrenos / rampa MV 0–2 / resto; London mulligan 1 − (1 − p)^n;
   heatmap 28–45 × 0–20.
 - Contexto de mesa (1vs1, 3 ou 4 jogadores, lugar): cartas vistas por
-  turno, mulligan grátis, jogadas de terreno.
+  turno, mulligan grátis.
+- **Onde melhorar**: lista ordenada pelos pontos da nota que cada correção
+  recupera, com números concretos (cartas em falta, fontes de cor para 90 %,
+  rampa ótima para os teus terrenos, trocas para baixar o CMC médio).
+- **Lugar na mesa** (separador próprio): desenvolvimento de mana turno a
+  turno calculado de forma exata (programação dinâmica sobre terrenos /
+  rampa MV ≤ 2 / resto, testada contra enumeração exaustiva), comandante a
+  tempo, interação na mão quando chega a 1.ª ameaça, comparação com um
+  deck de referência (36/12) e entre lugares, gráfico da mana ao longo da
+  mesa e sugestões de jogo geradas por regras fixas sobre esses números.
 - Nota 0–100: contagens 40 + mana 30 + mão inicial 30, com cada parcela
   explicada na página.
 
@@ -87,7 +96,8 @@ src/lib/cards/            normalização de nomes, gravação e pesquisa de cart
 src/lib/deck/             parser da decklist e validação
 src/lib/deck/groups.ts    agrupar por tipo, preços e totais
 src/lib/categories/       classificação das cartas (tags + regras + correções)
-src/lib/math/             hipergeométrica, mana, templates, mesa, nota
+src/lib/math/             hipergeométrica, mana, templates, mesa, nota,
+                          desenvolvimento (DP), lugares, onde melhorar
 data/category-overrides.json
 src/components/           grelha de cartas, modal, símbolos de mana
 src/app/                  páginas (colar deck, resultado)

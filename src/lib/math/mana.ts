@@ -92,6 +92,7 @@ export type ColorRequirement = {
  * Fontes de cada cor vs. símbolos exigidos. Para cada carta, a probabilidade
  * de ter ≥ k fontes da cor entre as cartas vistas até ao turno = MV
  * (hipergeométrica simples sobre as 99). A pior carta de cada cor é a que conta.
+ * Cartas com X contam um turno mais tarde (X ≥ 1).
  */
 export function colorRequirements(cards: EvalCard[], commander: EvalCard | null, identity: string, ctx: TableContext): ColorRequirement[] {
   const deck = cards;
@@ -111,7 +112,9 @@ export function colorRequirements(cards: EvalCard[], commander: EvalCard | null,
       const k = Math.max(...costs.map((cost) => pips(cost, color)));
       if (k === 0) continue;
       totalPips += k * c.quantity;
-      const turn = Math.max(1, Math.ceil(c.cmc), k);
+      // Cartas com X: assume-se X ≥ 1 (com X = 0 quase nunca se lançam).
+      const hasX = costs.some((cost) => parseManaSymbols(cost).includes("X"));
+      const turn = Math.max(1, Math.ceil(c.cmc) + (hasX ? 1 : 0), k);
       const seen = cardsSeen(ctx, turn);
       const probability = atLeast(LIBRARY_SIZE, sources, seen, k);
       if (!hardest || probability < hardest.probability) hardest = { name: c.name, pips: k, turn, cardsSeen: seen, probability };
