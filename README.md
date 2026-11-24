@@ -3,7 +3,7 @@
 Cola uma decklist de Commander e vê as cartas, os preços e uma avaliação
 matemática do deck (mana, rampa, draw, remoção…).
 
-Stack: Next.js (App Router) · TypeScript · Tailwind · Prisma + SQLite · Vitest.
+Stack: Next.js (App Router) · TypeScript · Tailwind · Prisma + SQLite · Vitest · API da Anthropic.
 
 ## Começar
 
@@ -77,10 +77,31 @@ proteção, tutor, recursão, wincon), por ordem de prioridade:
 - Nota 0–100: contagens 40 + mana 30 + mão inicial 30, com cada parcela
   explicada na página.
 
+## Melhorias com o Claude
+
+Separador "Melhorias" na página do deck. O servidor envia ao Claude o deck
+(com oracle text e categorias), as métricas da avaliação e, se quiseres, o
+plano do deck escrito por ti. A resposta vem em JSON estruturado (validado
+com zod): plano e sinergias, pontos fortes e fracos, cartas mais fracas e
+sugestões de cartas a adicionar.
+
+- **Chave:** `ANTHROPIC_API_KEY` no `.env` (conta em console.anthropic.com,
+  cobrada à parte da subscrição do Claude). Fica só no servidor.
+- **Modelo:** `claude-sonnet-5-5` por omissão; muda com `ANTHROPIC_MODEL`.
+  Se os filtros de segurança recusarem por engano, o servidor tenta outro
+  modelo (`fallbacks: "default"`).
+- **Sugestões verificadas:** só aparecem cartas que existem na base de dados
+  (ou no Scryfall), são legais em Commander, respeitam a identidade de cor e
+  não estão já no deck; as descartadas são listadas com o motivo.
+- **Cache:** a resposta fica guardada (tabela `DeckAdvice`) por deck + plano
+  + opções da avaliação + modelo + versão do prompt. Repetir não custa nada.
+- **Limite:** 10 análises novas por hora por IP (`src/app/api/advice/route.ts`).
+- Custo estimado com o Sonnet 5.5: uns cêntimos de dólar por análise nova.
+
 ## Estrutura
 
 ```
-prisma/schema.prisma      Card, CardName, CardCategory, ImportRun, Deck
+prisma/schema.prisma      Card, CardName, CardCategory, ImportRun, Deck, DeckAdvice
 scripts/import-scryfall.ts
 src/lib/scryfall/         cliente da API (ritmo, 429, cabeçalhos) e conversão das cartas
 src/lib/cards/            normalização de nomes, gravação e pesquisa de cartas
@@ -88,6 +109,7 @@ src/lib/deck/             parser da decklist e validação
 src/lib/deck/groups.ts    agrupar por tipo, preços e totais
 src/lib/categories/       classificação das cartas (tags + regras + correções)
 src/lib/math/             hipergeométrica, mana, templates, mesa, nota
+src/lib/advice/           prompt, esquema da resposta, chamada ao Claude, validação, cache
 data/category-overrides.json
 src/components/           grelha de cartas, modal, símbolos de mana
 src/app/                  páginas (colar deck, resultado)
