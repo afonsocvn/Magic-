@@ -95,19 +95,3 @@ model Deck {
   text      String
   createdAt DateTime @default(now())
 }
-
-/// Resposta do Claude em cache, por deck + plano + opções + modelo.
-model DeckAdvice {
-  /// sha256 de (deck, plano, opções da avaliação, modelo, versão do prompt)
-  key          String   @id
-  deckId       String
-  plan         String
-  model        String
-  /// ValidatedAdvice em JSON
-  result       Json
-  inputTokens  Int
-  outputTokens Int
-  createdAt    DateTime @default(now())
-
-  @@index([deckId])
-}

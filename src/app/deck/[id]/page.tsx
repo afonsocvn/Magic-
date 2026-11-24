@@ -7,9 +7,11 @@ import { prisma } from "@/lib/db";
 import { deckTotal, formatPrice, mergeLines, type Currency } from "@/lib/deck/groups";
 import { loadDeck } from "@/lib/deck/load";
 import { parseEvalParams, type RawParams } from "@/lib/deck/params";
-import { evaluateLoadedDeck } from "@/lib/deck/evaluation";
-import { AdvicePanel } from "@/components/advice/AdvicePanel";
 import { EvaluationView } from "@/components/eval/EvaluationView";
+import { evaluateDeck } from "@/lib/math/evaluate";
+import type { EvalCard } from "@/lib/math/mana";
+import type { DeckCard } from "@/lib/cards/types";
+import type { Classification } from "@/lib/categories/classify";
 import { toViewCard, toViewGroups, type ViewGroup } from "@/lib/deck/view";
 
 export const dynamic = "force-dynamic";
@@ -27,7 +29,7 @@ export default async function DeckPage({
   const raw = await searchParams;
   const evalParams = parseEvalParams(raw);
   const currency: Currency = evalParams.currency;
-  const tab = raw.v === "avaliacao" || raw.v === "melhorias" ? raw.v : "cartas";
+  const tab = raw.v === "avaliacao" ? "avaliacao" : "cartas";
   const deck = await prisma.deck.findUnique({ where: { id } });
   if (!deck) notFound();
 
@@ -59,7 +61,22 @@ export default async function DeckPage({
     ...toViewGroups(mainLines, currency, loaded.classification),
   ];
 
-  const evaluation = tab === "avaliacao" ? evaluateLoadedDeck(loaded, evalParams) : null;
+  const toEval = (card: DeckCard, quantity: number): EvalCard => ({
+    ...card,
+    quantity,
+    categories: (loaded.classification.get(card.id) as Classification).categories,
+  });
+  const evaluation =
+    tab === "avaliacao"
+      ? evaluateDeck({
+          deck: mergeLines(mainLines).map((l) => toEval(l.card, l.quantity)),
+          commander: commander ? toEval(commander, 1) : null,
+          identity: commander?.colorIdentity ?? "",
+          templateId: evalParams.template,
+          context: evalParams.context,
+          hands: evalParams.hands,
+        })
+      : null;
 
   const moedaHref = (c: Currency) => {
     const sp = new URLSearchParams(Object.entries(raw).filter((e): e is [string, string] => typeof e[1] === "string"));
@@ -68,15 +85,7 @@ export default async function DeckPage({
     const q = sp.toString();
     return `/deck/${id}${q ? `?${q}` : ""}`;
   };
-  const lastAdvice =
-    tab === "melhorias"
-      ? await prisma.deckAdvice.findFirst({ where: { deckId: id }, orderBy: { createdAt: "desc" }, select: { plan: true } })
-      : null;
-  const stringParams = Object.fromEntries(
-    Object.entries(raw).filter((e): e is [string, string] => typeof e[1] === "string" && e[0] !== "v"),
-  );
-
-  const tabHref = (v: "cartas" | "avaliacao" | "melhorias") => {
+  const tabHref = (v: "cartas" | "avaliacao") => {
     const sp = new URLSearchParams(Object.entries(raw).filter((e): e is [string, string] => typeof e[1] === "string"));
     if (v === "cartas") sp.delete("v");
     else sp.set("v", v);
@@ -123,7 +132,6 @@ export default async function DeckPage({
           [
             ["cartas", "Cartas"],
             ["avaliacao", "Avaliação"],
-            ["melhorias", "Melhorias"],
           ] as const
         ).map(([v, label]) =>
           v === tab ? (
@@ -138,15 +146,7 @@ export default async function DeckPage({
         )}
       </nav>
 
-      {tab === "melhorias" ? (
-        <AdvicePanel
-          deckId={id}
-          params={stringParams}
-          currency={currency}
-          initialPlan={lastAdvice?.plan ?? ""}
-          valid={loaded.validation.ok}
-        />
-      ) : evaluation ? (
+      {evaluation ? (
         <EvaluationView e={evaluation} params={evalParams} valid={loaded.validation.ok} />
       ) : (
         <>
