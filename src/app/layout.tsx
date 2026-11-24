@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -11,32 +11,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="pt">
       <body className="min-h-screen flex flex-col antialiased">
-        <header className="border-b border-rule">
-          <div className="mx-auto max-w-6xl px-4 py-3 flex items-baseline justify-between gap-4">
-            <Link href="/" className="no-underline font-serif text-lg font-semibold tracking-tight">
-              Commander<span className="text-accent">/</span>avaliação
-            </Link>
-            <span className="text-xs text-ink-2 hidden sm:inline">decks de 100 cartas · Magic: The Gathering</span>
-          </div>
-        </header>
+        <SiteHeader />
 
         <main className="flex-1 mx-auto w-full max-w-6xl px-4 py-8">{children}</main>
 
-        <footer className="border-t border-rule text-xs text-ink-2">
-          <div className="mx-auto max-w-6xl px-4 py-4 space-y-1">
-            <p>
-              Dados, imagens e preços das cartas:{" "}
-              <a href="https://scryfall.com" target="_blank" rel="noreferrer">
-                Scryfall
-              </a>
-              . Os preços são de referência e podem ter até 24 h.
-            </p>
-            <p>
-              Magic: The Gathering e todo o seu conteúdo são propriedade da Wizards of the Coast. Este site não é
-              produzido, apoiado nem afiliado com a Wizards of the Coast nem com o Scryfall.
-            </p>
-          </div>
-        </footer>
+        <SiteFooter />
       </body>
     </html>
   );

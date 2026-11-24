@@ -77,3 +77,11 @@ describe("linha em branco depois do comandante", () => {
     expect(r.entries[0].section).toBe("commander");
   });
 });
+
+describe("canonicalDeckText", () => {
+  it("mantém uma linha em branco (separa o comandante) e junta repetidas", async () => {
+    const { canonicalDeckText } = await import("@/lib/deck/parser");
+    expect(canonicalDeckText("  // COMMANDER\r\n1  X\n\n\n\n1 Y  \n")).toBe("// COMMANDER\n1 X\n\n1 Y");
+    expect(canonicalDeckText("// COMMANDER\n1 X\n1 Y")).not.toBe(canonicalDeckText("// COMMANDER\n1 X\n\n1 Y"));
+  });
+});

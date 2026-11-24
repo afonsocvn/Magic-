@@ -13,10 +13,13 @@
     "db:deploy": "prisma migrate deploy",
     "import:scryfall": "tsx scripts/import-scryfall.ts",
     "postinstall": "prisma generate",
-    "db:seed": "tsx scripts/seed-categories.ts"
+    "db:seed": "tsx scripts/seed-categories.ts",
+    "export:static": "tsx scripts/export-static.ts",
+    "build:static": "node scripts/build-static.mjs"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
+    "fflate": "^0.8.3",
     "next": "15.5.29",
     "prisma": "^6.19.3",
     "react": "19.1.0",
@@ -24,10 +27,12 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@tailwindcss/cli": "^4.3.5",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "esbuild": "^0.25.12",
     "eslint": "^9",
     "eslint-config-next": "15.5.29",
     "tailwindcss": "^4",

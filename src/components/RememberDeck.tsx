@@ -6,12 +6,15 @@ import { loadDecks, renameDeck, upsertDeck } from "@/lib/myDecks";
 /** Guarda este deck em "Os meus decks" e deixa dar-lhe um nome. */
 export function RememberDeck({
   id,
+  text,
   commander,
   identity,
   baseId,
   silent,
 }: {
   id: string;
+  /** Texto da lista (versão estática: é o que permite reabrir o deck) */
+  text?: string;
   commander: string;
   identity: string;
   baseId?: string;
@@ -22,9 +25,9 @@ export function RememberDeck({
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
-    upsertDeck({ id, commander, identity, baseId });
+    upsertDeck({ id, commander, identity, baseId, ...(text ? { text } : {}) });
     setName(loadDecks().find((d) => d.id === id)?.name ?? "");
-  }, [id, commander, identity, baseId]);
+  }, [id, text, commander, identity, baseId]);
 
   if (silent) return null;
   return (

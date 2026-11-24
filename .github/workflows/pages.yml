@@ -1,0 +1,59 @@
+# Publica a versão estática do site no GitHub Pages.
+# Corre a cada push, todos os dias (cartas e preços novos do Scryfall) e à mão.
+name: Publicar site
+
+on:
+  push:
+    branches: [ccr-f3aae43c-rgr1ep, main]
+  schedule:
+    # O Scryfall gera o bulk por volta das 10:00 UTC; atualizamos às 11:23 UTC.
+    - cron: "23 11 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: "file:./ci.db"
+      SCRYFALL_USER_AGENT: "CommanderDeckEval/0.1 (GitHub Actions)"
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: Base de dados das cartas (Scryfall)
+        run: |
+          npx prisma migrate deploy
+          npm run import:scryfall
+          npm run db:seed
+      - name: Construir a versão estática
+        run: |
+          npm run export:static
+          npm run build:static
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out-static
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

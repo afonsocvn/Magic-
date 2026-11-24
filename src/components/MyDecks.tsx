@@ -8,7 +8,14 @@ import { ColorPips } from "./ColorPips";
 const dateFmt = new Intl.DateTimeFormat("pt-PT", { dateStyle: "short", timeStyle: "short" });
 
 /** Lista dos decks guardados neste browser; escolhe dois para comparar. */
-export function MyDecks() {
+export function MyDecks({
+  deckHref = (d) => `/deck/${d.id}`,
+  compareHref = (a, b) => `/comparar?a=${a.id}&b=${b.id}`,
+}: {
+  /** Ligações (a versão estática usa o texto guardado; null = sem ligação) */
+  deckHref?: (d: SavedDeck) => string | null;
+  compareHref?: (a: SavedDeck, b: SavedDeck) => string | null;
+} = {}) {
   const [decks, setDecks] = useState<SavedDeck[]>([]);
   const [picked, setPicked] = useState<string[]>([]);
 
@@ -18,7 +25,7 @@ export function MyDecks() {
   const toggle = (id: string) =>
     setPicked((p) => (p.includes(id) ? p.filter((x) => x !== id) : [...p, id].slice(-2)));
   const pair = picked.map((id) => decks.find((d) => d.id === id)).filter((d): d is SavedDeck => !!d);
-  const [a, b] = pair.length === 2 ? compareOrder(pair[0], pair[1]).map((d) => d.id) : [];
+  const cmp = pair.length === 2 ? compareHref(...compareOrder(pair[0], pair[1])) : null;
 
   return (
     <section aria-labelledby="meus" className="space-y-3">
@@ -26,8 +33,8 @@ export function MyDecks() {
         <h2 id="meus" className="text-lg">
           Os meus decks
         </h2>
-        {picked.length === 2 ? (
-          <Link href={`/comparar?a=${a}&b=${b}`} className="text-sm">
+        {cmp ? (
+          <Link href={cmp} className="text-sm">
             Comparar os dois selecionados →
           </Link>
         ) : (
@@ -43,10 +50,22 @@ export function MyDecks() {
               onChange={() => toggle(d.id)}
               aria-label={`Selecionar ${deckLabel(d)}`}
             />
-            <Link href={`/deck/${d.id}`} className="min-w-0 flex-1 truncate no-underline hover:underline">
-              {deckLabel(d)}
-              {d.name && <span className="text-ink-2"> · {d.commander}</span>}
-            </Link>
+            {(() => {
+              const href = deckHref(d);
+              const label = (
+                <>
+                  {deckLabel(d)}
+                  {d.name && <span className="text-ink-2"> · {d.commander}</span>}
+                </>
+              );
+              return href ? (
+                <Link href={href} className="min-w-0 flex-1 truncate no-underline hover:underline">
+                  {label}
+                </Link>
+              ) : (
+                <span className="min-w-0 flex-1 truncate">{label}</span>
+              );
+            })()}
             <ColorPips identity={d.identity} size={14} />
             <span className="num hidden text-xs text-ink-2 sm:inline">{dateFmt.format(new Date(d.savedAt))}</span>
             <button

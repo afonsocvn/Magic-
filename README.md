@@ -102,6 +102,31 @@ proteção, tutor, recursão, wincon), por ordem de prioridade:
 - **Os meus decks** (página inicial): lista guardada só no browser
   (localStorage), com nome para cada versão; seleciona dois para comparar.
 
+## Versão estática (GitHub Pages, grátis)
+
+O mesmo site, a correr todo no browser: as cartas vão num ficheiro JSON
+(`data/cards.json`, ~11 MB, ~3 MB comprimido) e cada deck vai comprimido no
+próprio link (`#/deck?d=…`), por isso partilhar um deck ou uma comparação é
+só partilhar o link. Não precisa de servidor, base de dados nem chaves.
+
+```bash
+npm run export:static   # cartas da BD local → out-static/data
+npm run build:static    # app.js + app.css + index.html → out-static
+```
+
+O workflow `.github/workflows/pages.yml` faz tudo sozinho a cada push e todos
+os dias às 11:23 UTC (cartas e preços novos): importa o Scryfall, corre os
+testes, exporta, constrói e publica. Para o ligar (uma vez):
+
+1. Repositório público: *Settings → General → Danger Zone → Change visibility → Public*
+   (o GitHub Pages é grátis só em repositórios públicos).
+2. *Settings → Pages → Build and deployment → Source: GitHub Actions*.
+3. *Actions → Publicar site → Run workflow*.
+
+O site fica em `https://<utilizador>.github.io/Magic-/`. O GitHub suspende
+tarefas diárias de repositórios sem atividade há 60 dias; nesse caso basta
+voltar a correr o workflow em *Actions*.
+
 ## Estrutura
 
 ```
@@ -116,6 +141,9 @@ src/lib/math/             hipergeométrica, mana, templates, mesa, nota,
                           desenvolvimento (DP), lugares, onde melhorar, perfil
 src/lib/deck/compare.ts   diferenças entre duas versões
 src/components/charts/    radar, quadrantes, barras
+src/components/views/     páginas do deck e da comparação (partilhadas)
+src/static/               versão estática: dados, link do deck, shims do Next
+scripts/export-static.ts, scripts/build-static.mjs
 data/category-overrides.json
 src/components/           grelha de cartas, modal, símbolos de mana
 src/app/                  páginas (colar deck, resultado)

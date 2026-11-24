@@ -102,11 +102,16 @@ export function parseDecklist(text: string): ParseResult {
   return { entries, unparsed, hasCommanderSection };
 }
 
-/** Texto canónico (para o hash do deck): ignora espaços extra e linhas vazias. */
+/**
+ * Texto canónico (para o hash e para o link do deck): ignora espaços extra e
+ * linhas em branco repetidas, mas mantém uma linha em branco onde havia,
+ * porque ela tem significado (depois do comandante, termina essa secção).
+ */
 export function canonicalDeckText(text: string): string {
   return text
     .split(/\r?\n/)
     .map((l) => l.trim().replace(/\s+/g, " "))
-    .filter(Boolean)
-    .join("\n");
+    .join("\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
 }

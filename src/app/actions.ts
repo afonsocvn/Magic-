@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
-import { deckId } from "@/lib/deck/load";
+import { deckId } from "@/lib/deck/serverSource";
 
 export type SubmitState = { error?: string };
 

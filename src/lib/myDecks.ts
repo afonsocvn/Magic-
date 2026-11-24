@@ -7,6 +7,8 @@ export type SavedDeck = {
   commander: string;
   identity: string;
   name?: string;
+  /** Texto da lista (só na versão estática, que não tem servidor) */
+  text?: string;
   /** Deck de onde esta versão foi feita */
   baseId?: string;
   /** Primeira vez que foi guardado */

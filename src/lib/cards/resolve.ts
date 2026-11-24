@@ -1,36 +1,16 @@
 import type { Card, PrismaClient } from "@prisma/client";
 import { normalizeName } from "./normalize";
 import { upsertCards } from "./store";
-import { toDeckCard, type DeckCard } from "./types";
+import { toDeckCard } from "./types";
+import { pickBestCard } from "./pick";
+export { pickBestCard };
 import { fetchCollection } from "@/lib/scryfall/client";
 import { isGameCard, lookupNames, mapScryfallCard } from "@/lib/scryfall/map";
 import type { CollectionIdentifier } from "@/lib/scryfall/types";
 import type { DeckEntry } from "@/lib/deck/types";
 
-export type Resolved = { entry: DeckEntry; card: DeckCard };
-
-/**
- * Quando um nome corresponde a várias cartas, preferir: nome completo exato
- * (e não o nome de uma face de outra carta), depois a legal, depois a do bulk.
- * Ex.: "Swords to Plowshares" também é a 2.ª face de "Emeritus of Truce".
- */
-function rank(card: Card, query: string): number {
-  return (
-    (normalizeName(card.name) === query ? 0 : 4) +
-    (card.commanderLegality === "legal" ? 0 : 2) +
-    (card.source === "bulk" ? 0 : 1)
-  );
-}
-
-/** A melhor carta para um nome pesquisado (ver `rank`). */
-export function pickBestCard<C extends Card>(cards: C[], query: string): C | undefined {
-  let best: C | undefined;
-  for (const card of cards) {
-    const r = rank(card, query);
-    if (!best || r < rank(best, query) || (r === rank(best, query) && card.name < best.name)) best = card;
-  }
-  return best;
-}
+import type { Resolved } from "@/lib/deck/load";
+export type { Resolved };
 
 async function findByNames(db: PrismaClient, names: string[]): Promise<Map<string, Card>> {
   const rows = await db.cardName.findMany({
