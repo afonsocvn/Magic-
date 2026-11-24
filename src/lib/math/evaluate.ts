@@ -7,6 +7,18 @@ import { cardsKept, cardsSeen, opponentTurnsBefore, type TableContext } from "./
 import { improvements, type Improvement } from "./improvements";
 import { analyseAllSeats, type DeckProfile, type SeatAnalysis } from "./seats";
 import { seatAdvice, type SeatAdvice } from "./seatAdvice";
+import {
+  colorBalance,
+  composition,
+  compositionPoint,
+  playstylePoint,
+  radarAxes,
+  speedScore,
+  type ColorBalance,
+  type CompositionSlice,
+  type QuadrantPoint,
+  type RadarAxis,
+} from "./profile";
 import { TEMPLATES, templateRowScore, templateStatus, type Status, type TemplateId } from "./templates";
 
 export const CHEAP_RAMP_MV = 2;
@@ -38,6 +50,15 @@ export type Evaluation = {
   seats: SeatAnalysis[];
   seatAdvice: SeatAdvice;
   improvements: Improvement[];
+  /** Perfil visual: radar 0–10, quadrantes, composição e cores */
+  style: {
+    radar: RadarAxis[];
+    speed: number;
+    playstyle: QuadrantPoint;
+    composition: QuadrantPoint;
+    types: CompositionSlice[];
+    colors: ColorBalance[];
+  };
 };
 
 const sum = (cs: EvalCard[]) => cs.reduce((s, c) => s + c.quantity, 0);
@@ -149,7 +170,19 @@ export function evaluateDeck({
     context,
   });
 
+  const speedInput = { avgCmc, expectedManaT4: mySeat.development[3].expected };
+  const speed = speedScore(speedInput);
+  const style = {
+    radar: radarAxes(deck, score, speedInput),
+    speed,
+    playstyle: playstylePoint(deck, speed),
+    composition: compositionPoint(deck, speed),
+    types: composition(deck),
+    colors: colorBalance(colors),
+  };
+
   return {
+    style,
     profile,
     seats,
     seatAdvice: seatAdvice(profile, context, seats, single),

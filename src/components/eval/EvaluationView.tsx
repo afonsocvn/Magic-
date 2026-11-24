@@ -10,6 +10,7 @@ import { HandHeatmap } from "./HandHeatmap";
 import { ManaCurve } from "./ManaCurve";
 import { StatusMark } from "./StatusMark";
 import { Improvements } from "./Improvements";
+import { ProfileCharts } from "./ProfileCharts";
 
 const probStatus = (p: number): Status => (p >= 0.9 ? "ok" : p >= 0.75 ? "warn" : "bad");
 
@@ -68,6 +69,13 @@ export function EvaluationView({ e, params, valid }: { e: Evaluation; params: Ev
             ))}
           </tbody>
         </table>
+      </section>
+
+      <section aria-labelledby="perfil" className="space-y-4">
+        <h2 id="perfil" className="border-b border-rule pb-1 text-lg">
+          Perfil do deck
+        </h2>
+        <ProfileCharts entries={[{ name: "Este deck", tone: "main", e }]} />
       </section>
 
       <Improvements items={e.improvements} />
